@@ -7,7 +7,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { ParkingLotWrapper, Container } from './ParkingLotCard/styles';
 
 export const FiltersWrapper = styled.div`
-    // height: 50px;
     background-color: ${props => props.theme.palette.secondary.main};
     margin: 0 20px;
     box-sizing: border-box;

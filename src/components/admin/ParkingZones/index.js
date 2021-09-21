@@ -1,7 +1,7 @@
 import {
     FiltersWrapper,
-    ParkingLotsWrapper,
-    AddParkingLotCard,
+    ParkingZonesWrapper,
+    AddParkingZoneCard,
     AddIcon,
     AddItem,
     SearchBarTextField,
@@ -10,7 +10,7 @@ import {
 
 import Box from '@mui/material/Box';
 
-import ParkingLotCard from './ParkingLotCard';
+import ParkingZoneCard from './ParkingZoneCard';
 
 import {
     parkingLots
@@ -49,26 +49,26 @@ const SearchBar = () => {
 }
 
 
-const ParkingLots = () => {
+const ParkingZones = () => {
     console.log(searchBarOptions);
     return <>
         <FiltersWrapper>
             <SearchBar />
             <h1 style={{ margin: 0 }}>Debar Maalo</h1>
-            <h4 style={{ margin: 0, width: '220px' }}></h4> {/* TODO DropList */}
+            <div style={{ margin: 0, width: '220px' }} /> {/* TODO DropList */}
         </FiltersWrapper>
 
-        <ParkingLotsWrapper container spacing={{ md: 5 }}>
-            <AddParkingLotCard item md={3}>
+        <ParkingZonesWrapper container spacing={{ md: 5 }}>
+            <AddParkingZoneCard item md={3}>
                 <AddItem>
                     <AddIcon />
                 </AddItem>
-            </AddParkingLotCard>
+            </AddParkingZoneCard>
             {
-                parkingLots.map(parkingLot => <ParkingLotCard info={parkingLot} key={parkingLot.id} />)
+                parkingLots.map(parkingLot => <ParkingZoneCard info={parkingLot} key={parkingLot.id} />)
             }
-        </ParkingLotsWrapper>
+        </ParkingZonesWrapper>
     </>
 };
 
-export default ParkingLots;
+export default ParkingZones;

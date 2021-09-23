@@ -19,6 +19,7 @@ export const Header = styled.div`
     justify-content: space-between;
     height: 46px;
     padding: 10px;
+    border-bottom: 1px solid grey;
     background-color: ${props => props.theme.palette.secondary.main}
 `;
 
@@ -75,6 +76,7 @@ export const SideMenu = styled.div`
     width: 70px;
     padding: 20px 10px 0 10px;
     box-sizing: border-box;
+    border-right: 1px solid grey;
     background-color: ${props => props.theme.palette.secondary.main}; 
 `;
 

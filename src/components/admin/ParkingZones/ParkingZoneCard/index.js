@@ -1,5 +1,5 @@
 import {
-    ParkingLotWrapper,
+    ParkingZoneWrapper,
     Container,
     ParkingName,
     InfoWrapper,
@@ -9,26 +9,32 @@ import {
     ProgressBarLabel
 } from './styles';
 
-const ParkingLotCard = ({ info }) => {
+const ParkingZoneCard = ({ info }) => {
+    // console.log(`Pred: ${info.responsiblePersons.length}`);
+    // const responsiblePersons = info.responsiblePersons.length > 2 ? info.responsiblePersons.splice(2) : info.responsiblePersons;
 
-    return <ParkingLotWrapper item md={3}>
+    return <ParkingZoneWrapper item md={3}>
         <Container>
             <ParkingName>{info.parkingName}</ParkingName>
             <InfoWrapper>
-                <Label>Odgovorno lice:</Label>
-                <Value>{info.responsiblePerson}</Value>
+                <Label>Odgovorni lica:</Label>
+                {
+                    info.responsiblePersons.slice(0, 1).map((person, index) => <Value key={index}>{person}</Value>)
+                }
+                {
+                    info.responsiblePersons.length > 1 ? <Value>...</Value> : null
+                }
             </InfoWrapper>
             <InfoWrapper>
                 <Label>Broj parking mesta:</Label>
                 <Value>{info.parkingSpaces}</Value>
             </InfoWrapper>
-            {/* TODO Progress bar */}
             <ProgressBar
                 percent={Math.round(info.takenParkingSpaces / info.parkingSpaces * 100)}
                 label={() => <ProgressBarLabel>{Math.round(info.takenParkingSpaces / info.parkingSpaces * 100)}%</ProgressBarLabel>}
             />
         </Container>
-    </ParkingLotWrapper>
+    </ParkingZoneWrapper>
 };
 
-export default ParkingLotCard;
+export default ParkingZoneCard;

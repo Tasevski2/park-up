@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 import { LineProgressBar } from '@frogress/line'
 
 
-export const ParkingLotWrapper = styled(Grid)`
+export const ParkingZoneWrapper = styled(Grid)`
     height: 350px;
 `;
 
@@ -52,13 +52,14 @@ export const Value = styled(Typography).attrs({
 })`
     font-size: 1.25rem;
     font-weight: 600;
+    margin-top: 5px;
 `;
 
-export const ProgressBar = styled(LineProgressBar).attrs({
+export const ProgressBar = styled(LineProgressBar).attrs(props => ({
     stripe: true,
-    progressColor: `#52D681`, //`${props => props.theme.palette.primary.main}` NOT WORKING TODO
+    progressColor: props.theme.palette.primary.main,
     height: '30px',
-})`
+}))`
     position: absolute;
     bottom: 5px;
 `;

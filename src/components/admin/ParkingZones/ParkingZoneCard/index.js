@@ -10,13 +10,20 @@ import {
 } from './styles';
 
 const ParkingZoneCard = ({ info }) => {
+    // console.log(`Pred: ${info.responsiblePersons.length}`);
+    // const responsiblePersons = info.responsiblePersons.length > 2 ? info.responsiblePersons.splice(2) : info.responsiblePersons;
 
     return <ParkingZoneWrapper item md={3}>
         <Container>
             <ParkingName>{info.parkingName}</ParkingName>
             <InfoWrapper>
-                <Label>Odgovorno lice:</Label>
-                <Value>{info.responsiblePerson}</Value>
+                <Label>Odgovorni lica:</Label>
+                {
+                    info.responsiblePersons.slice(0, 1).map((person, index) => <Value key={index}>{person}</Value>)
+                }
+                {
+                    info.responsiblePersons.length > 1 ? <Value>...</Value> : null
+                }
             </InfoWrapper>
             <InfoWrapper>
                 <Label>Broj parking mesta:</Label>

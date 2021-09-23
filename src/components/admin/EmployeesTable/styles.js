@@ -8,6 +8,7 @@ import TC from '@mui/material/TableCell';
 
 import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import TextField from '@mui/material/TextField';
 
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
@@ -111,3 +112,7 @@ export const ToggleAccoutStatusButton = styled(Button).attrs(props => ({
         background-color: ${props => props.$enabled ? `${props.theme.palette.success.light}` : `${props.theme.palette.error.light}`}
     }
 `;
+
+export const SearchField = styled(TextField).attrs({
+    variant: 'standard'
+})``;

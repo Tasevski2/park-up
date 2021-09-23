@@ -23,7 +23,7 @@ export const employees = [
     {
         id: 2,
         email: 'andrejTav@gmail.com',
-        firstname: 'Andrej',
+        firstName: 'Andrej',
         lastName: 'Tavcioski',
         zone: 'Zona 2',
         phoneNumber: '070350123',

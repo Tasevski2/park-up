@@ -52,6 +52,7 @@ export const Value = styled(Typography).attrs({
 })`
     font-size: 1.25rem;
     font-weight: 600;
+    margin-top: 5px;
 `;
 
 export const ProgressBar = styled(LineProgressBar).attrs(props => ({

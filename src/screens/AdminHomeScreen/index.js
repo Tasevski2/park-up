@@ -20,7 +20,7 @@ import IconButton from '@mui/material/IconButton';
 
 import logo from '../../resources/logo_2_transparent_bg.jpg';
 import ParkingZones from '../../components/admin/ParkingZones';
-import ManageEmpoyees from '../../components/admin/ManageEmployees';
+import EmployeesTable from '../../components/admin/EmployeesTable';
 
 const AdminHomeScreen = (props) => {
     return <Container>
@@ -52,7 +52,7 @@ const AdminHomeScreen = (props) => {
 
             <MainSection>
                 {/* <ParkingZones /> */}
-                <ManageEmpoyees />
+                <EmployeesTable />
             </MainSection>
         </SideMenuAndMainSectionWrapper>
     </Container>

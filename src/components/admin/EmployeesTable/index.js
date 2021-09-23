@@ -12,8 +12,16 @@ import {
     ButtonTableCell,
     ToggleAccoutStatusButton,
     CreateEmployeeButton,
-    AddIcon
+    AddIcon,
+    SearchField
 } from './styles';
+
+import InputAdornment from '@mui/material/InputAdornment';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+
+import {
+    employees
+} from './mockData';
 
 
 const accountStatus = {
@@ -21,11 +29,21 @@ const accountStatus = {
     disabled: 'Neaktiven'
 };
 
-const EmployeesTable = ({ employeesData }) => {
+const EmployeesTable = () => {
     return (
         <TableContainer>
             <TableHeaderWrapper>
                 <TableTitle variant='h5'>Vraboteni</TableTitle>
+                <SearchField
+                    placeholder="Prebaraj..."
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <PermIdentityIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
                 <CreateEmployeeButton>
                     <AddIcon />
                     Dodadi vraboten
@@ -43,7 +61,7 @@ const EmployeesTable = ({ employeesData }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {employeesData.map((employeeData) => (
+                    {employees.map((employeeData) => (
                         <TableRow
                             key={employeeData.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>

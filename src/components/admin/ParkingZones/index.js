@@ -5,7 +5,9 @@ import {
     AddIcon,
     AddItem,
     SearchBarTextField,
-    AutocompleteSearchBar
+    AutocompleteSearchBar,
+    ParkingName,
+    DividerUnderFilters
 } from './styles';
 
 import Box from '@mui/material/Box';
@@ -16,11 +18,11 @@ import {
     parkingLots
 } from './mockData';
 
-const searchBarOptions = parkingLots.map(p => {
-    return {
-        person: p.responsiblePerson
-    }
-});
+const searchBarOptions = parkingLots
+    .flatMap(p => p.responsiblePersons)
+    .map(person => ({
+        person
+    }));
 
 
 const SearchBar = () => {
@@ -53,13 +55,14 @@ const ParkingZones = () => {
     console.log(searchBarOptions);
     return <>
         <FiltersWrapper>
+            <ParkingName>Parking - Debar Maalo</ParkingName>
             <SearchBar />
-            <h1 style={{ margin: 0 }}>Debar Maalo</h1>
-            <div style={{ margin: 0, width: '220px' }} /> {/* TODO DropList */}
         </FiltersWrapper>
 
-        <ParkingZonesWrapper container spacing={{ md: 5 }}>
-            <AddParkingZoneCard item md={3}>
+        <DividerUnderFilters />
+
+        <ParkingZonesWrapper container spacing={{ xs: 3, md: 5 }}>
+            <AddParkingZoneCard item xs={11} sm={6} md={3}>
                 <AddItem>
                     <AddIcon />
                 </AddItem>

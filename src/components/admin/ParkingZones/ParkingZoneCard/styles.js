@@ -15,7 +15,8 @@ export const Container = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: ${props => props.theme.palette.primary.dark};
+    box-shadow: 15px 15px 10px ${props => props.theme.palette.background.shadow};
+    background-color: ${props => props.theme.palette.background.white};
     :hover {
         opacity: 0.8;
         cursor: pointer;

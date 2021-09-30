@@ -13,11 +13,11 @@ import {
     ToggleAccoutStatusButton,
     CreateEmployeeButton,
     AddIcon,
-    SearchField
+    SearchField,
+    IdentityIcon
 } from './styles';
 
 import InputAdornment from '@mui/material/InputAdornment';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 import {
     employees
@@ -39,7 +39,7 @@ const EmployeesTable = () => {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <PermIdentityIcon />
+                                <IdentityIcon />
                             </InputAdornment>
                         ),
                     }}

@@ -9,6 +9,7 @@ import TC from '@mui/material/TableCell';
 import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import TextField from '@mui/material/TextField';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
@@ -17,6 +18,9 @@ export const TableContainer = styled(TContainer).attrs({
     component: Paper
 })`
     max-width: 1000px;
+    margin-top: 20px;
+    margin-left: 30px;
+    box-shadow: 15px 15px 10px ${props => props.theme.palette.background.shadow};
 `;
 
 export const TableHeaderWrapper = styled.div`
@@ -40,10 +44,13 @@ export const TableTitle = styled(Typography).attrs({
     
 `;
 
-export const CreateEmployeeButton = styled(Button).attrs({
+export const CreateEmployeeButton = styled(Button).attrs(props => ({
     variant: 'contained',
-    size: 'large'
-})`
+    size: 'large',
+    sx: {
+        backgroundColor: `${props.theme.palette.primary.main}`
+    }
+}))`
     padding-left: 11px;
 `;
 
@@ -53,7 +60,18 @@ export const AddIcon = styled(AddCircleOutlineIcon)`
 
 export const Table = styled(T).attrs({
 
-})``;
+})`
+    th, td {
+        padding: 20px;
+        font-size: 1rem;
+    }
+`;
+
+export const IdentityIcon = styled(PermIdentityIcon).attrs(props => ({
+    sx: {
+        color: `${props.theme.palette.primary.dark}`
+    }
+}))``;
 
 export const TableHead = styled(TH).attrs({
 
@@ -104,15 +122,23 @@ export const ToggleAccoutStatusButton = styled(Button).attrs(props => ({
     variant: 'contained',
     size: 'medium',
     sx: {
-        backgroundColor: props.$enabled ? `${props.theme.palette.success.main}` : `${props.theme.palette.error.main}`,
+        backgroundColor: props.$enabled ? `${props.theme.palette.primary.main}` : `${props.theme.palette.error.main}`,
     }
 })
 )`
     :hover {
-        background-color: ${props => props.$enabled ? `${props.theme.palette.success.light}` : `${props.theme.palette.error.light}`}
+        background-color: ${props => props.$enabled ? `${props.theme.palette.primary.light}` : `${props.theme.palette.error.light}`}
     }
 `;
 
 export const SearchField = styled(TextField).attrs({
     variant: 'standard'
-})``;
+})`
+    > div:before {
+        border-bottom: 1px solid ${props => props.theme.palette.primary.dark};
+    }
+   input {
+       color: ${props => props.theme.palette.primary.dark};
+       font-weight: 600;
+   } 
+`;

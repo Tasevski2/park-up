@@ -1,13 +1,7 @@
-const enumStatus = {
-    working: 'Raboti',
-    notWorking: 'Ne raboti',
-    vacation: 'Odmor'
-};
-
-const accountStatus = {
-    enabled: 'Aktiven',
-    disabled: 'Neaktiven'
-};
+import {
+    employeeStatus,
+    accountStatus
+} from '../../../config/enums';
 
 export const employees = [
     {
@@ -17,7 +11,7 @@ export const employees = [
         lastName: 'Tasevski',
         zone: 'Zona 1',
         phoneNumber: '072500000',
-        status: enumStatus.vacation,
+        status: employeeStatus.vacation,
         accountStatus: accountStatus.enabled
     },
     {
@@ -27,7 +21,7 @@ export const employees = [
         lastName: 'Tavcioski',
         zone: 'Zona 2',
         phoneNumber: '070350123',
-        status: enumStatus.working,
+        status: employeeStatus.working,
         accountStatus: accountStatus.enabled
     },
     {
@@ -37,7 +31,7 @@ export const employees = [
         lastName: 'Trajkovski',
         zone: 'Zona 3',
         phoneNumber: '078123321',
-        status: enumStatus.working,
+        status: employeeStatus.working,
         accountStatus: accountStatus.enabled
     },
     {
@@ -47,7 +41,7 @@ export const employees = [
         lastName: 'POC',
         zone: 'Zona 4',
         phoneNumber: '223305',
-        status: enumStatus.notWorking,
+        status: employeeStatus.notWorking,
         accountStatus: accountStatus.enabled
     },
     {
@@ -57,7 +51,7 @@ export const employees = [
         lastName: 'Silbo',
         zone: 'Zona 5',
         phoneNumber: '071206205',
-        status: enumStatus.notWorking,
+        status: employeeStatus.notWorking,
         accountStatus: accountStatus.disabled
     }
 ];

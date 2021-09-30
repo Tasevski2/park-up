@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import { Typography } from "@mui/material";
+import { Divider } from '@mui/material';
 
 import Logout from '@mui/icons-material/Logout';
 import Dashboard from '@mui/icons-material/Dashboard';
 import SupervisorAccount from '@mui/icons-material/SupervisorAccount';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 100%;
   flex: 1;
 `;
@@ -17,11 +19,18 @@ export const Header = styled.div`
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    height: 46px;
-    padding: 10px;
-    border-bottom: 1px solid grey;
-    background-color: ${props => props.theme.palette.secondary.main}
+    padding: 10px 30px;
+    box-sizing: border-box;
 `;
+
+export const DividerUnderHeader = styled(Divider).attrs({
+    variant: 'middle',
+    sx: {
+        margin: '0 25px',
+        borderWidth: '2px',
+        borderBottomWidth: 'thin'
+    }
+})``;
 
 export const TitleAndLogoWrapper = styled.div`
     display: flex;
@@ -31,6 +40,7 @@ export const TitleAndLogoWrapper = styled.div`
 
 export const HeaderTitle = styled(Typography).attrs({
     variant: 'h1',
+    fontWeight: 600
 })`
     color: ${props => props.theme.palette.primary.main};
     font-size: 2.5rem;
@@ -50,24 +60,34 @@ export const LogoWrapper = styled.div`
 export const UserNameAndLogoutWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    margin-right: 30px;
     align-items: center;
 `;
 
 export const UserName = styled(Typography).attrs({
-    variant: 'subtitle1',
+    variant: 'h3',
 })`
-    margin-right: 15px;
+    margin-left: 10px;
+    margin-right: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: ${props => props.theme.palette.primary.main}
 `;
 
-export const LogoutIcon = styled(Logout)``;
+export const LogoutIcon = styled(Logout).attrs(props => ({
+    sx: {
+        fontSize: 30,
+        color: `${props.theme.palette.error.light}`
+    }
+}))``;
 
 
-export const SideMenuAndMainSectionWrapper = styled.div`
+export const HeaderAndMainSectionWrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
+    width: 100%;
     box-sizing: border-box;
+    background-color: ${props => props.theme.palette.background.whiteSmoke};
 `;
 
 export const SideMenu = styled.div`
@@ -77,29 +97,38 @@ export const SideMenu = styled.div`
     padding: 20px 10px 0 10px;
     box-sizing: border-box;
     border-right: 1px solid grey;
-    background-color: ${props => props.theme.palette.secondary.main}; 
+    background-color: ${props => props.theme.palette.primary.main}; 
 `;
 
-export const DashboardIcon = styled(Dashboard).attrs({
+export const DashboardIcon = styled(Dashboard).attrs(props => ({
     sx: {
-        fontSize: 35
+        fontSize: 35,
+        color: props.theme.palette.background.white
     }
-})`
+}))`
     margin-bottom: 15px;
 `;
 
-export const SupervisorAccountIcon = styled(SupervisorAccount).attrs({
+export const SupervisorAccountIcon = styled(SupervisorAccount).attrs(props => ({
     sx: {
-        fontSize: 35
+        fontSize: 35,
+        color: props.theme.palette.background.white
     }
-})``;
+}))``;
+
+export const UserIcon = styled(AccountCircleIcon).attrs(props => ({
+    sx: {
+        fontSize: 30,
+        color: `${props.theme.palette.primary.main}`
+    }
+}))``;
 
 export const MainSection = styled.div`
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 0px;
     display: flex;
     flex-direction: column;
-    background-color: ${props => props.theme.palette.secondary.light};
+    box-sizing: border-box;
 `;
 
 

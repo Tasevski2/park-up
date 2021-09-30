@@ -3,14 +3,19 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
     palette: {
         primary: {
-            light: '#B5FF7D',
-            main: '#52D681',
-            dark: '#00AD7C'
+            light: '#4cc5a3',
+            main: '#00AD7C',
+            dark: '#007956'
         },
         secondary: {
             light: '#DFDFDF',
             main: '#B0B0B0',
             dark: '#8C8C8C'
+        },
+        background: {
+            white: '#FFFFFF',
+            whiteSmoke: '#f4f4f4',
+            shadow: '#aaaaaa'
         }
     },
     // overrides: { TODO

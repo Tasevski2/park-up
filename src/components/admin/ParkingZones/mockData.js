@@ -3,7 +3,7 @@ export const parkingLots = [
         id: 1,
         parkingName: 'Zona 1',
         responsiblePersons: [
-            'Viktor Tasvski',
+            'Viktor Tasevski',
             'Dracevcanec'
         ],
         parkingSpaces: 69,

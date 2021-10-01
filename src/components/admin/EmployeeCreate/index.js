@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import useForm from '../../../hooks/useForm';
 
 import {
@@ -15,8 +15,6 @@ import {
     SwitchTitle,
     SwitchLabelAndInputWrapper,
     AccountSwitch,
-    BackAndSaveChangesButtonsWrapper,
-    DeleteButton,
     BackButton,
     SaveChangesButton,
     VisibilityIcon,
@@ -30,18 +28,16 @@ import {
 } from '../../../config/enums';
 
 import {
-    employees
-} from '../EmployeesTable/mockData';
+    defaultUser
+} from '../../../config/defaultUser';
 
-const EmployeeEdit = () => {
+const EmployeeCreate = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     let history = useHistory();
-    let { employeeId } = useParams();
-    employeeId = parseInt(employeeId);
 
-    const employee = employees.find(e => e.id === employeeId);
-    const { data: employeeEditableData, onFormChange: setEmployeeEditableData } = useForm({ ...employee, confirmPassword: employee.password });
-    const [accStatus, setAccStatus] = useState(employee ? employee.accountActive : false);
+
+    const { data: employeeEditableData, onFormChange: setEmployeeEditableData } = useForm({ ...defaultUser, confirmPassword: defaultUser.password });
+    const [accStatus, setAccStatus] = useState(defaultUser.accountActive);
 
     const zoneOptions = [
         {
@@ -77,16 +73,12 @@ const EmployeeEdit = () => {
         }
     });
 
-    const onSaveChanges = () => {
+    const onCreateEmployee = () => {
         const changedEmployee = {
             ...employeeEditableData,
             accountActive: accStatus
         }
-        console.log('Changed employee: ', changedEmployee);
-    }
-
-    const onDeleteEmployee = () => {
-        console.log(`Empoyee with ${employee.id} is deleted`);
+        console.log('Created employee: ', changedEmployee);
     }
 
     return <EmployeeEditWrapper>
@@ -95,7 +87,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Ime</Label>
                 <StandardInputField
-                    value={employeeEditableData?.firstName ?? ''}
+                    value={employeeEditableData.firstName}
                     name='firstName'
                     onChange={setEmployeeEditableData}
                 />
@@ -103,7 +95,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Prezime</Label>
                 <StandardInputField
-                    value={employeeEditableData?.lastName ?? ''}
+                    value={employeeEditableData.lastName}
                     name='lastName'
                     onChange={setEmployeeEditableData}
                 />
@@ -113,7 +105,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Email</Label>
                 <StandardInputField
-                    value={employeeEditableData?.email ?? ''}
+                    value={employeeEditableData.email}
                     name='email'
                     type='email'
                     onChange={setEmployeeEditableData}
@@ -122,7 +114,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Telefon</Label>
                 <StandardInputField
-                    value={employeeEditableData?.phoneNumber ?? ''}
+                    value={employeeEditableData.phoneNumber}
                     name='phoneNumber'
                     onChange={setEmployeeEditableData}
                 />
@@ -132,9 +124,10 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Lozinka</Label>
                 <StandardInputField
-                    value={employeeEditableData?.password ?? ''}
+                    value={employeeEditableData.password}
                     name='password'
                     type={isPasswordVisible ? 'text' : 'password'}
+                    $autoComplete={true}
                     onChange={setEmployeeEditableData}
                 />
             </LabelAndInputWrapper>
@@ -149,7 +142,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Potvrdi lozinka</Label>
                 <StandardInputField
-                    value={employeeEditableData?.confirmPassword ?? ''}
+                    value={employeeEditableData.confirmPassword}
                     name='confirmPassword'
                     type={isPasswordVisible ? 'text' : 'password'}
                     onChange={setEmployeeEditableData}
@@ -160,7 +153,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Odgovoren za</Label>
                 <Dropdown
-                    value={employeeEditableData?.zone !== '' ? employeeEditableData?.zone : zoneOptions[0].value}
+                    value={employeeEditableData.zone}
                     name='zone'
                     onChange={setEmployeeEditableData}
                 >
@@ -172,7 +165,7 @@ const EmployeeEdit = () => {
             <LabelAndInputWrapper>
                 <Label>Status</Label>
                 <Dropdown
-                    value={employeeEditableData?.status !== '' ? employeeEditableData?.status : statusOptions[0].value}
+                    value={employeeEditableData.status}
                     name='status'
                     onChange={setEmployeeEditableData}
                 >
@@ -195,19 +188,14 @@ const EmployeeEdit = () => {
             </SwitchLabelAndInputWrapper>
         </SwitchRowWrapper>
         <RowWrapper>
-            <DeleteButton onClick={onDeleteEmployee}>
-                Izbrisi vraboten
-            </DeleteButton>
-            <BackAndSaveChangesButtonsWrapper>
-                <BackButton onClick={() => history.push('/employees')}>
-                    Vrati se nazad
-                </BackButton>
-                <SaveChangesButton onClick={onSaveChanges}>
-                    Zacuvaj gi promenti
-                </SaveChangesButton>
-            </BackAndSaveChangesButtonsWrapper>
+            <BackButton onClick={() => history.push('/employees')}>
+                Vrati se nazad
+            </BackButton>
+            <SaveChangesButton onClick={onCreateEmployee}>
+                Kreiraj vraboten
+            </SaveChangesButton>
         </RowWrapper>
     </EmployeeEditWrapper>
 };
 
-export default EmployeeEdit;
+export default EmployeeCreate;

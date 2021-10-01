@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { StyledEngineProvider } from '@mui/material/styles';
@@ -12,17 +13,17 @@ import theme from './theme/index';
 
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
+      <StyledEngineProvider injectFirst>
 
-    <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
 
-      <ThemeProvider theme={theme}>
+          <App />
 
-        <App />
+        </ThemeProvider>
 
-      </ThemeProvider>
-
-    </StyledEngineProvider>
-
+      </StyledEngineProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

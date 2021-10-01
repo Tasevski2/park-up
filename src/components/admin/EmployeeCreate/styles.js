@@ -104,22 +104,6 @@ export const AccountSwitch = styled(Switch).attrs(props => ({
     }
 `;
 
-
-export const BackAndSaveChangesButtonsWrapper = styled.div`
-
-`;
-
-export const DeleteButton = styled(Button).attrs(props => ({
-    variant: 'contained',
-    sx: {
-        backgroundColor: `${props.theme.palette.error.main}`
-    }
-}))`
-    :hover {
-        background-color: ${props => props.theme.palette.error.dark};
-    }
-`;
-
 export const BackButton = styled(Button).attrs({
     variant: 'outlined'
 })`

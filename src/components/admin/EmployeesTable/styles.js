@@ -52,6 +52,10 @@ export const CreateEmployeeButton = styled(Button).attrs(props => ({
     }
 }))`
     padding-left: 11px;
+    
+    :hover {
+        background-color: ${props => props.theme.palette.primary.dark}
+    }
 `;
 
 export const AddIcon = styled(AddCircleOutlineIcon)`
@@ -89,8 +93,11 @@ export const TableRow = styled(TR).attrs({
 })``;
 
 export const TableBody = styled(TB).attrs({
-
 })`
+    tr:last-child td, tr:last-child th {
+            border: none;
+    }
+    
     tr:nth-of-type(odd) {
         background-color: ${props => `${props.theme.palette.grey[400]}`};
         :hover {
@@ -99,6 +106,7 @@ export const TableBody = styled(TB).attrs({
         }
         
     }
+    
     tr:nth-of-type(even) {
         background-color: ${props => `${props.theme.palette.grey[200]}`};
         :hover {
@@ -116,7 +124,9 @@ export const ButtonTableCell = styled(TC).attrs({
     sx: {
         padding: 0
     }
-})``;
+})`
+    z-index: 100;
+`;
 
 export const ToggleAccoutStatusButton = styled(Button).attrs(props => ({
     variant: 'contained',

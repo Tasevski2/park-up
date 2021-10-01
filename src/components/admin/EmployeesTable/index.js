@@ -1,4 +1,4 @@
-
+import { useHistory } from 'react-router';
 
 import {
     TableContainer,
@@ -20,21 +20,46 @@ import {
 import InputAdornment from '@mui/material/InputAdornment';
 
 import {
+    employeeStatus,
+    accountStatus
+} from '../../../config/enums';
+
+import {
     employees
 } from './mockData';
-
-
-const accountStatus = {
-    enabled: 'Aktiven',
-    disabled: 'Neaktiven'
-};
+import { useState } from 'react';
 
 const EmployeesTable = () => {
+    let history = useHistory();
+    const [filteredEmployees, setFilteredEmployees] = useState(employees);
+    const [search, setSearch] = useState('');
+
+    const onRowClick = (id) => {
+        history.push(`/employees/${id}`);
+    }
+
+    const onAccountStatusClick = (event, id) => {
+        event.stopPropagation();
+        console.log(`Disable or activate user acc with id: ${id}`);
+    }
+
+    const onChangeSearch = (e) => {
+        let newSearchValue = e.target.value;
+        setSearch(newSearchValue);
+        const filteredData = employees.filter(
+            employee => employee.firstName.concat(` ${employee.lastName}`).toLowerCase().includes(newSearchValue.trim().toLowerCase())
+        );
+
+        setFilteredEmployees(filteredData);
+    }
+
     return (
         <TableContainer>
             <TableHeaderWrapper>
                 <TableTitle variant='h5'>Vraboteni</TableTitle>
                 <SearchField
+                    value={search}
+                    onChange={(e) => onChangeSearch(e)}
                     placeholder="Prebaraj..."
                     InputProps={{
                         startAdornment: (
@@ -44,7 +69,7 @@ const EmployeesTable = () => {
                         ),
                     }}
                 />
-                <CreateEmployeeButton>
+                <CreateEmployeeButton onClick={() => history.push('/employees/create')}>
                     <AddIcon />
                     Dodadi vraboten
                 </CreateEmployeeButton>
@@ -61,18 +86,21 @@ const EmployeesTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {employees.map((employeeData) => (
+                    {filteredEmployees.map((employeeData) => (
                         <TableRow
                             key={employeeData.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            onClick={() => onRowClick(employeeData.id)}
+                        >
                             <TableCell align="left">{employeeData.email}</TableCell>
                             <TableCell align="center">{employeeData.firstName} {employeeData.lastName}</TableCell>
                             <TableCell align="center">{employeeData.zone}</TableCell>
                             <TableCell align="center">{employeeData.phoneNumber}</TableCell>
-                            <TableCell align="center">{employeeData.status}</TableCell>
+                            <TableCell align="center">{employeeStatus[employeeData.status]}</TableCell>
                             <ButtonTableCell align="center" >
-                                <ToggleAccoutStatusButton $enabled={employeeData.accountStatus === accountStatus.enabled}>{/* $ added because https://styled-components.com/docs/api#transient-props*/}
-                                    {employeeData.accountStatus}
+                                <ToggleAccoutStatusButton
+                                    onClick={(event) => onAccountStatusClick(event, employeeData.id)}
+                                    $enabled={employeeData.accountActive}>{/* $ added because https://styled-components.com/docs/api#transient-props*/}
+                                    {employeeData.accountActive ? accountStatus.enabled : accountStatus.disabled}
                                 </ToggleAccoutStatusButton>
                             </ButtonTableCell>
                         </TableRow>

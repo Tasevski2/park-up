@@ -1,57 +1,57 @@
-import {
-    employeeStatus,
-    accountStatus
-} from '../../../config/enums';
-
 export const employees = [
     {
         id: 1,
         email: 'viktor-tasevski@hotmail.com',
+        password: '123',
         firstName: 'Viktor',
         lastName: 'Tasevski',
-        zone: 'Zona 1',
+        zone: 'zone1',
         phoneNumber: '072500000',
-        status: employeeStatus.vacation,
-        accountStatus: accountStatus.enabled
+        status: 'vacation',
+        accountActive: true
     },
     {
         id: 2,
         email: 'andrejTav@gmail.com',
+        password: '123',
         firstName: 'Andrej',
         lastName: 'Tavcioski',
-        zone: 'Zona 2',
+        zone: 'zone2',
         phoneNumber: '070350123',
-        status: employeeStatus.working,
-        accountStatus: accountStatus.enabled
+        status: 'working',
+        accountActive: true
     },
     {
         id: 3,
         email: 'david.trajkovski@yahoo.com',
+        password: '123',
         firstName: 'David',
         lastName: 'Trajkovski',
-        zone: 'Zona 3',
+        zone: 'zone3',
         phoneNumber: '078123321',
-        status: employeeStatus.working,
-        accountStatus: accountStatus.enabled
+        status: 'working',
+        accountActive: true
     },
     {
         id: 4,
         email: 'poc@gmail.com',
+        password: '123',
         firstName: 'Nekoj od',
         lastName: 'POC',
-        zone: 'Zona 4',
+        zone: 'zone4',
         phoneNumber: '223305',
-        status: employeeStatus.notWorking,
-        accountStatus: accountStatus.enabled
+        status: 'notWorking',
+        accountActive: true
     },
     {
         id: 5,
         email: 'silbo@outlook.com',
+        password: '123',
         firstName: 'Nekoj od',
         lastName: 'Silbo',
-        zone: 'Zona 5',
+        zone: 'zone5',
         phoneNumber: '071206205',
-        status: employeeStatus.notWorking,
-        accountStatus: accountStatus.disabled
+        status: 'notWorking',
+        accountActive: false
     }
 ];

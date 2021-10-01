@@ -52,7 +52,6 @@ const SearchBar = () => {
 
 
 const ParkingZones = () => {
-    console.log(searchBarOptions);
     return <>
         <FiltersWrapper>
             <ParkingName>Parking - Debar Maalo</ParkingName>

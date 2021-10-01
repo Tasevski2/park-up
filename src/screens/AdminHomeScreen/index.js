@@ -1,3 +1,6 @@
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 import {
     Container,
     Header,
@@ -21,20 +24,53 @@ import IconButton from '@mui/material/IconButton';
 
 
 import logo from '../../resources/logo_2_transparent_bg.jpg';
+import { roles } from '../../config/enums';
+import DestinationComponent from '../../utils/DestinationComponent';
+import onClickRouting from '../../utils/onClickRouting';
+
 import ParkingZones from '../../components/admin/ParkingZones';
 import EmployeesTable from '../../components/admin/EmployeesTable';
 import EmployeeEdit from '../../components/admin/EmployeeEdit';
+import EmployeeCreate from '../../components/admin/EmployeeCreate';
+
+const ToParkingZones = new DestinationComponent('/', ParkingZones, true);
+const ToEmployeesTable = new DestinationComponent('/employees', EmployeesTable, true);
+const ToEmployeeCreate = new DestinationComponent('/employees/create', EmployeeCreate, true);
+const ToEmployeeEdit = new DestinationComponent('/employees/:employeeId', EmployeeEdit, true);
+
+const adminRoutes = [
+    ToParkingZones,
+    ToEmployeesTable,
+    ToEmployeeCreate,
+    ToEmployeeEdit,
+];
+
+const employeeRoutes = [
+    ToParkingZones
+];
 
 const AdminHomeScreen = (props) => {
+    let history = useHistory();
+    const user = {
+        role: 'ROLE_ADMIN'
+    };
+
+    let routes = user.role === roles.admin ? adminRoutes : employeeRoutes;
+
     return <Container>
 
         <SideMenu>
-            <IconButton>
+            <IconButton onClick={() => onClickRouting('/', history)}>
                 <DashboardIcon />
             </IconButton>
-            <IconButton>
-                <SupervisorAccountIcon />
-            </IconButton>
+            {
+                user.role === roles.admin ?
+                    <IconButton onClick={() => onClickRouting('/employees', history)}>
+                        <SupervisorAccountIcon />
+                    </IconButton>
+                    :
+                    null
+            }
         </SideMenu>
 
         <HeaderAndMainSectionWrapper>
@@ -56,9 +92,17 @@ const AdminHomeScreen = (props) => {
             </Header>
             <DividerUnderHeader />
             <MainSection>
-                <ParkingZones />
-                {/* <EmployeesTable /> */}
-                {/* <EmployeeEdit /> */}
+                <Switch>
+                    {
+                        routes?.map((route, index) => <Route
+                            key={index}
+                            path={route.path}
+                            component={route.component}
+                            exact={route.exact}
+                        />)
+                    }
+                    <Redirect to='/' />
+                </Switch>
             </MainSection>
         </HeaderAndMainSectionWrapper>
     </Container>

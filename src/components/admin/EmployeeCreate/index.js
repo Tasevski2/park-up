@@ -82,7 +82,7 @@ const EmployeeCreate = () => {
     }
 
     return <EmployeeEditWrapper>
-        <Title variant='h5'>Uredi vraboten</Title>
+        <Title variant='h5'>Kreiraj vraboten</Title>
         <RowWrapper>
             <LabelAndInputWrapper>
                 <Label>Ime</Label>

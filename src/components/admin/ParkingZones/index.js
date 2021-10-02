@@ -15,6 +15,10 @@ import Box from '@mui/material/Box';
 import ParkingZoneCard from './ParkingZoneCard';
 
 import {
+    roles
+} from '../../../config/enums';
+
+import {
     parkingLots
 } from './mockData';
 
@@ -52,6 +56,9 @@ const SearchBar = () => {
 
 
 const ParkingZones = () => {
+    const user = {
+        role: 'ROLE_ADMIN'
+    };
     return <>
         <FiltersWrapper>
             <ParkingName>Parking - Debar Maalo</ParkingName>
@@ -61,11 +68,18 @@ const ParkingZones = () => {
         <DividerUnderFilters />
 
         <ParkingZonesWrapper container spacing={{ xs: 3, md: 5 }}>
-            <AddParkingZoneCard item xs={11} sm={6} md={3}>
-                <AddItem>
-                    <AddIcon />
-                </AddItem>
-            </AddParkingZoneCard>
+            {
+                user.role === roles.admin ? (
+                    < AddParkingZoneCard item xs={11} sm={6} md={3}>
+                        <AddItem>
+                            <AddIcon />
+                        </AddItem>
+                    </AddParkingZoneCard>
+                )
+                    :
+                    null
+            }
+
             {
                 parkingLots.map(parkingLot => <ParkingZoneCard info={parkingLot} key={parkingLot.id} />)
             }

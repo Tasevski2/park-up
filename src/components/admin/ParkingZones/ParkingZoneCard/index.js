@@ -27,8 +27,8 @@ const ParkingZoneCard = ({ info }) => {
                 <Value>{info.parkingSpaces}</Value>
             </InfoWrapper>
             <ProgressBar
-                percent={Math.round(info.takenParkingSpaces / info.parkingSpaces * 100)}
-                label={() => <ProgressBarLabel>{Math.round(info.takenParkingSpaces / info.parkingSpaces * 100)}%</ProgressBarLabel>}
+                percent={Math.floor(info.takenParkingSpaces / info.parkingSpaces * 100)}
+                label={() => <ProgressBarLabel >{info.takenParkingSpaces}/{info.parkingSpaces}</ProgressBarLabel>}
             />
         </Container>
     </ParkingZoneWrapper>

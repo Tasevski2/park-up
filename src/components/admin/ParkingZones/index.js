@@ -1,16 +1,18 @@
+import { useState } from 'react';
 import {
     FiltersWrapper,
+    SortingArrowsWrapper,
+    SortByTitle,
+    ArrowDown,
+    ArrowUp,
+    ClearSortIcon,
     ParkingZonesWrapper,
     AddParkingZoneCard,
     AddIcon,
     AddItem,
-    SearchBarTextField,
-    AutocompleteSearchBar,
     ParkingName,
     DividerUnderFilters
 } from './styles';
-
-import Box from '@mui/material/Box';
 
 import ParkingZoneCard from './ParkingZoneCard';
 
@@ -19,50 +21,84 @@ import {
 } from '../../../config/enums';
 
 import {
-    parkingLots
+    parkingZones
 } from './mockData';
 
-const searchBarOptions = parkingLots
-    .flatMap(p => p.responsiblePersons)
-    .map(person => ({
-        person
-    }));
+const sortDownUp = (a, b) => {
+    const aPercent = a.takenParkingSpaces / a.parkingSpaces;
+    const bPercent = b.takenParkingSpaces / b.parkingSpaces;
+    if (aPercent > bPercent) {
+        return 1;
+    } else {
+        if (aPercent < bPercent) {
+            return -1;
+        }
+        return a.parkingName - b.parkingName;
+    }
+};
 
+const sortUpDown = (a, b) => {
+    const aPercent = a.takenParkingSpaces / a.parkingSpaces;
+    const bPercent = b.takenParkingSpaces / b.parkingSpaces;
+    if (aPercent > bPercent) {
+        return -1;
+    } else {
+        if (aPercent < bPercent) {
+            return 1;
+        }
+        return a.parkingName - b.parkingName;
+    }
+};
 
-const SearchBar = () => {
-    return (
-        <AutocompleteSearchBar
-            id="parking-zone-select"
-            options={searchBarOptions}
-            autoHighlight
-            getOptionLabel={(option) => option.person}
-            renderOption={(props, option) => (
-                <Box component="li" {...props}>
-                    {option.person}
-                </Box>
-            )}
-            renderInput={(params) => (
-                <SearchBarTextField
-                    {...params}
-                    label="Prebaraj spored licnost"
-                    inputProps={{
-                        ...params.inputProps
-                    }}
-                />
-            )}
-        />
-    );
-}
-
+const sortByName = (a, b) => {
+    if (a.parkingName >= b.parkingName) {
+        return 1;
+    }
+    return -1;
+};
 
 const ParkingZones = () => {
+    const [isArrowUpUp, setIsArrowUpUp] = useState(false);
+    const [isArrowDownUp, setIsArrowDownUp] = useState(false);
+
     const user = {
         role: 'ROLE_ADMIN'
     };
+    const sortFunc = isArrowUpUp ? sortDownUp : isArrowDownUp ? sortUpDown : sortByName;
+
     return <>
         <FiltersWrapper>
             <ParkingName>Parking - Debar Maalo</ParkingName>
-            <SearchBar />
+            <SortingArrowsWrapper>
+                <SortByTitle>Sortiraj:</SortByTitle>
+                <ArrowUp onClick={() => {
+                    if (!isArrowUpUp) {
+                        setIsArrowUpUp(true);
+                        setIsArrowDownUp(false);
+                    }
+                }}
+                    selected={isArrowUpUp}
+                />
+                <ArrowDown onClick={() => {
+                    if (!isArrowDownUp) {
+                        setIsArrowDownUp(true);
+                        setIsArrowUpUp(false);
+                    }
+                }}
+                    selected={isArrowDownUp}
+                />
+                {
+                    isArrowUpUp || isArrowDownUp ?
+                        <ClearSortIcon
+                            onClick={() => {
+                                setIsArrowUpUp(false);
+                                setIsArrowDownUp(false);
+                            }}
+                        />
+                        :
+                        null
+                }
+            </SortingArrowsWrapper>
         </FiltersWrapper>
 
         <DividerUnderFilters />
@@ -81,7 +117,9 @@ const ParkingZones = () => {
             }
 
             {
-                parkingLots.map(parkingLot => <ParkingZoneCard info={parkingLot} key={parkingLot.id} />)
+                parkingZones
+                    .sort(sortFunc)
+                    .map(parkingLot => <ParkingZoneCard info={parkingLot} key={parkingLot.id} />)
             }
         </ParkingZonesWrapper>
     </>

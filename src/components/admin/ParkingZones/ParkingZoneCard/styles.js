@@ -66,7 +66,7 @@ export const ProgressBar = styled(LineProgressBar).attrs(props => ({
 `;
 
 export const ProgressBarLabel = styled.p`
-    margin: 0 0 0 15px;
+    margin: 0 0 0 42.5%;
     line-height: 30px;
     position: absolute;
     font-weight: 500;

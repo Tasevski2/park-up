@@ -1,4 +1,4 @@
-export const parkingLots = [
+export const parkingZones = [
     {
         id: 1,
         parkingName: 'Zona 1',

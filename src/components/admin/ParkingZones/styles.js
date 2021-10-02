@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Add from '@mui/icons-material/Add';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { Typography, Divider } from '@mui/material';
-
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ClearIcon from '@mui/icons-material/Clear';
 import { ParkingZoneWrapper, Container } from './ParkingZoneCard/styles';
 
 export const FiltersWrapper = styled.div`
@@ -17,6 +17,48 @@ export const FiltersWrapper = styled.div`
     align-items: center;
     padding: 10px 175px;
 `;
+
+export const SortingArrowsWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+`;
+
+export const ArrowDown = styled(ArrowDownwardIcon).attrs({
+})`
+    font-size: 2rem;
+    color: ${props => props.selected ? props.theme.palette.primary.main : ''};
+    :hover {
+        cursor: pointer;
+        color: ${props => props.theme.palette.primary.main}
+    }
+`;
+
+export const ArrowUp = styled(ArrowUpwardIcon).attrs({
+})`
+    margin: 0 10px 0 15px;
+    font-size: 2rem;
+    color: ${props => props.selected ? props.theme.palette.primary.main : ''};
+    :hover {
+        cursor: pointer;
+        color: ${props => props.theme.palette.primary.main}
+    }
+`;
+
+export const ClearSortIcon = styled(ClearIcon).attrs({
+
+})`
+    color: ${props => props.theme.palette.error.main};
+    position: absolute;
+    right: 0;
+    font-size: 2rem;
+    right: -50px;
+    :hover {
+        cursor: pointer;
+    }
+`;
+
 export const DividerUnderFilters = styled(Divider).attrs({
     variant: 'middle',
     sx: {
@@ -26,6 +68,12 @@ export const DividerUnderFilters = styled(Divider).attrs({
     }
 })``;
 
+export const SortByTitle = styled(Typography).attrs(props => ({
+    fontSize: '1rem',
+    fontWeight: '600',
+    margin: 0,
+    color: `${props.theme.palette.primary.main}`
+}))``;
 
 export const ParkingName = styled(Typography).attrs(props => ({
     fontSize: '2rem',
@@ -57,25 +105,4 @@ export const AddIcon = styled(Add).attrs({
     width: 100%;
     height: 100%;
     color: ${props => props.theme.palette.primary.main}
-`;
-
-export const AutocompleteSearchBar = styled(Autocomplete).attrs({
-    sx: {
-        display: 'inline-block',
-        bgcolor: 'white',
-    }
-})`
-    width: 220px;
-    
-`;
-
-export const SearchBarTextField = styled(TextField).attrs({
-
-})`
-    input {
-        color: ${props => props.theme.palette.primary.main};
-    }
-    fieldset {
-        border-color: ${props => props.theme.palette.primary.main};
-    }
 `;

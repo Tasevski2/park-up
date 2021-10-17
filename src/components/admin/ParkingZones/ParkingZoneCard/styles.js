@@ -24,7 +24,7 @@ export const Container = styled.div`
     position: relative;
 `;
 
-export const ParkingName = styled(Typography).attrs({
+export const ZoneName = styled(Typography).attrs({
     variant: 'h2'
 })`
     font-size: 2rem;

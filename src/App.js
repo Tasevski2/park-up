@@ -4,15 +4,15 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import DestinationComponent from './utils/DestinationComponent';
 
 import AdminHomeScreen from './screens/AdminHomeScreen';
-import LoginScreenImported from './screens/LoginScreen';
+import AuthScreenImported from './screens/AuthScreen';
 
 import { roles } from './config/enums';
 
-const LoginScreen = new DestinationComponent('/', LoginScreenImported, true);
+const AuthScreen = new DestinationComponent('/', AuthScreenImported, true);
 const AdminEmployeeHomeScreen = new DestinationComponent('/', AdminHomeScreen);
 // const UserHomeScreen = new DestinationComponent('/', UserHomeScreen); TODO
 
-const publicRoutes = [LoginScreen];
+const publicRoutes = [AuthScreen];
 
 const userRoutes = [
   // UserHomeScreen
@@ -22,7 +22,7 @@ const adminAndEmployeeRoutes = [AdminEmployeeHomeScreen];
 
 function App(props) {
   // const user = {
-  //   role: 'ROLE_ADMIN'
+  //   role: 'ROLE_ADMIN',
   // };
 
   const user = null;

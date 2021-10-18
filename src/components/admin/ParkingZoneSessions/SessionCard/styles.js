@@ -68,17 +68,3 @@ export const DeleteButton = styled(Button).attrs((props) => ({
     background-color: #e51616;
   }
 `;
-
-export const ContinueButton = styled(Button).attrs((props) => ({
-  variant: 'contained',
-  size: 'small',
-  sx: {
-    backgroundColor: `${props.theme.palette.primary.main}`,
-  },
-}))`
-  margin-top: 20px;
-
-  :hover {
-    background-color: ${(props) => props.theme.palette.primary.dark};
-  }
-`;

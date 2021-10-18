@@ -12,8 +12,19 @@ import {
   AddItem,
   ParkingName,
   DividerUnderFilters,
+  ModalContainer,
+  ModalTitle,
+  ModalInputAndLabelWrapper,
+  ModalInput,
+  ModalInputLabel,
+  ModalButton,
+  ButtonWrapper,
+  CloseIcon,
 } from './styles';
 
+import Modal from '@mui/material/Modal';
+import Backdrop from '@mui/material/Backdrop';
+import { IconButton, Slide } from '@mui/material';
 import ParkingZoneCard from './ParkingZoneCard';
 
 import { roles } from '../../../config/enums';
@@ -56,6 +67,8 @@ const sortByName = (a, b) => {
 const ParkingZones = () => {
   const [isArrowUpUp, setIsArrowUpUp] = useState(false);
   const [isArrowDownUp, setIsArrowDownUp] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalInput, setModalInput] = useState('');
 
   const user = {
     role: 'ROLE_ADMIN',
@@ -66,8 +79,60 @@ const ParkingZones = () => {
     ? sortUpDown
     : sortByName;
 
+  const handleCreateZone = () => {
+    console.log(`Kreirana zona so naziv: ${modalInput}`);
+    setModalInput('');
+    setModalOpen(false);
+  };
+
   return (
     <>
+      <Modal
+        open={isModalOpen}
+        onClose={() => {
+          setModalInput('');
+          setModalOpen(false);
+        }}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Slide in={isModalOpen}>
+          <ModalContainer>
+            <IconButton
+              onClick={() => {
+                setModalInput('');
+                setModalOpen(false);
+              }}
+              style={{
+                position: 'absolute',
+                right: -5,
+                top: -5,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <ModalTitle>НОВА ЗОНА</ModalTitle>
+            <ModalInputAndLabelWrapper>
+              <ModalInputLabel>Назив на Зона</ModalInputLabel>
+              <ModalInput
+                value={modalInput}
+                onChange={(event) => setModalInput(event.target.value)}
+              />
+            </ModalInputAndLabelWrapper>
+            <ButtonWrapper>
+              <ModalButton onClick={handleCreateZone}>Креирај Зона</ModalButton>
+            </ButtonWrapper>
+          </ModalContainer>
+        </Slide>
+      </Modal>
       <FiltersWrapper>
         <ParkingName>Паркинг - Дебар Маало</ParkingName>
         <SortingArrowsWrapper>
@@ -105,7 +170,13 @@ const ParkingZones = () => {
 
       <ParkingZonesWrapper container spacing={{ xs: 3, md: 5 }}>
         {user.role === roles.admin ? (
-          <AddParkingZoneCard item xs={11} sm={6} md={3}>
+          <AddParkingZoneCard
+            item
+            xs={11}
+            sm={6}
+            md={3}
+            onClick={() => setModalOpen(true)}
+          >
             <AddItem>
               <AddIcon />
             </AddItem>

@@ -7,7 +7,6 @@ import {
   ParkingSpaceNumberInput,
   CheckIcon,
   DeleteButton,
-  ContinueButton,
 } from './styles';
 
 import { sessionStatus } from '../../../../config/enums';
@@ -107,7 +106,6 @@ const OverCard = ({ id, start, end, plate, status, parkingSpaceNumber }) => {
 
       <SessionChildWrapper>
         <DeleteButton>ИЗБРИШИ</DeleteButton>
-        <ContinueButton>ПРОДОЛЖИ</ContinueButton>
       </SessionChildWrapper>
     </Wrapper>
   );

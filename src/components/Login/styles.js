@@ -1,45 +1,9 @@
 import { Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import PIcon from '@mui/icons-material/Person';
 import LIcon from '@mui/icons-material/Lock';
-import backgroundImage from '../../resources/login_background.jpg';
-
-export const ScreenWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.palette.background.whiteSmoke};
-`;
-
-export const LoginWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 500px;
-  height: 100vh;
-  background-image: url(${backgroundImage});
-  position: relative;
-  border-radius: 10px;
-
-  @media (min-width: 450px) {
-    max-height: 750px;
-  }
-`;
-
-export const LogoWrapper = styled.div`
-  width: 100%;
-  height: 200px;
-  margin-bottom: 40px;
-`;
-
-export const Logo = styled.img`
-  width: 100%;
-  height: 100%;
-`;
+import styled from 'styled-components';
 
 export const CredentialsWrapper = styled.div`
   display: flex;
@@ -51,7 +15,7 @@ export const CredentialsWrapper = styled.div`
 export const Input = styled(TextField).attrs({
   fullWidth: true,
   sx: {
-    marginTop: '35px',
+    marginTop: '25px',
   },
 })`
   > div {
@@ -61,11 +25,15 @@ export const Input = styled(TextField).attrs({
     color: white;
     font-size: 1.2rem;
     padding-left: 10px;
+
+    ::placeholder {
+      opacity: 0.6;
+    }
   }
 
   fieldset {
     border: 0;
-    border-bottom: 2px solid white;
+    border-bottom: 4px solid white;
     border-radius: 25px;
     padding: 0 10px;
   }
@@ -88,6 +56,7 @@ export const PersonIcon = styled(PIcon).attrs({
 export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
   padding: 30px 25px;
 `;
 export const SignInButton = styled(Button).attrs((props) => ({
@@ -127,7 +96,6 @@ export const DividerText = styled.p`
 export const RegisterText = styled.p`
   position: absolute;
   bottom: 0;
-  align-self: cetner;
   width: 100%;
   text-align: center;
   color: white;

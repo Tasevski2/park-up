@@ -11,9 +11,9 @@ export const Marker = styled.div`
   width: 30px;
   height: 25px;
   background-color: ${(props) =>
-    props.$free
-      ? `${props.theme.palette.success.light}`
-      : `${props.theme.palette.error.main}`}};
+    props.$isTaken
+      ? `${props.theme.palette.error.main}`
+      : `${props.theme.palette.success.light}`}};
   display: inline-flex;
   align-items: center;
   justify-content: center;

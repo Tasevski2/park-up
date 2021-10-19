@@ -2,8 +2,8 @@ import GoogleMapReact from 'google-map-react';
 
 import { Wrapper, Marker } from './styles';
 
-const ParkingSpaceMarker = ({ text, free }) => (
-  <Marker $free={free}>{text}</Marker>
+const ParkingSpaceMarker = ({ text, isTaken }) => (
+  <Marker $isTaken={isTaken}>{text}</Marker>
 );
 
 const GoogleMaps = ({ location, parkingSpacesLocation, zoneAreaColor }) => {
@@ -21,6 +21,7 @@ const GoogleMaps = ({ location, parkingSpacesLocation, zoneAreaColor }) => {
     });
     zoneArea.setMap(map);
   };
+
   return (
     <Wrapper>
       <GoogleMapReact
@@ -34,7 +35,7 @@ const GoogleMaps = ({ location, parkingSpacesLocation, zoneAreaColor }) => {
             key={index}
             lat={p.lat}
             lng={p.lng}
-            free={p.free}
+            isTaken={p.isTaken}
             text={p.parkingSpaceNumber}
           />
         ))}

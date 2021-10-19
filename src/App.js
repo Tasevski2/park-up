@@ -21,11 +21,11 @@ const userRoutes = [
 const adminAndEmployeeRoutes = [AdminEmployeeHomeScreen];
 
 function App(props) {
-  // const user = {
-  //   role: 'ROLE_ADMIN',
-  // };
+  const user = {
+    role: 'ROLE_ADMIN',
+  };
 
-  const user = null;
+  // const user = null;
 
   let routes = publicRoutes;
   if (user) {

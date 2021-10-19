@@ -38,7 +38,7 @@ const ParkingZone = () => {
 
   const zone = parkingZones.find((z) => z.id === parseInt(zone_id));
   const Info =
-    user.role !== roles.admin ? ParkingZoneInfo : ParkingZoneSessions;
+    user.role === roles.admin ? ParkingZoneInfo : ParkingZoneSessions;
   return (
     <>
       <NamesWrapper>

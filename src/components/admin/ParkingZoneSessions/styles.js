@@ -5,9 +5,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
-  padding: 30px 175px 0 175px;
+  padding: 30px 12% 0 12%;
   width: 100%;
+  max-width: 1440px;
+  margin: auto;
   height: 100%;
 `;
 
@@ -37,7 +38,7 @@ export const Stats = styled.div`
 export const KeyValueWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 220px;
+  width: 280px;
   justify-content: space-between;
 `;
 
@@ -46,12 +47,13 @@ export const StatsKey = styled.p`
   background: -webkit-linear-gradient(#333333, #4cc5a3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-size: 1.2rem;
 `;
 
 export const StatsValue = styled.p`
   margin: 0;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   background: -webkit-linear-gradient(#333333, #4cc5a3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

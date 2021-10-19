@@ -2,9 +2,11 @@ export const parkingZones = [
   {
     id: 1,
     zoneName: 'Zona 1',
-    responsiblePersons: ['Viktor Tasevski', 'Dracevcanec'],
+    responsiblePersons: ['Viktor Tasevski', 'Dracevcanec'], // THIS SHOULD BE IN THE ParkingZones Call Only for the Card. For the ZoneInfo We need More Data for The Employees. This should be array of employee objects.
     parkingSpaces: 69,
     takenParkingSpaces: 34,
+    hourlyRate: 30,
+    workingHours: '05:00 - 24:00',
     areaColor: '#FFD700',
     location: {
       center: {
@@ -23,25 +25,25 @@ export const parkingZones = [
         lat: '41.938271',
         lng: '21.512380',
         parkingSpaceNumber: 'A21',
-        free: true,
+        isTaken: true,
       },
       {
         lat: '41.938284',
         lng: '21.512387',
         parkingSpaceNumber: 'A1',
-        free: false,
+        isTaken: false,
       },
       {
         lat: '41.938292',
         lng: '21.512365',
         parkingSpaceNumber: 'B55',
-        free: true,
+        isTaken: true,
       },
       {
         lat: '41.938279',
         lng: '21.512359',
         parkingSpaceNumber: 'C20',
-        free: false,
+        isTaken: false,
       },
     ],
   },
@@ -51,6 +53,8 @@ export const parkingZones = [
     responsiblePersons: ['Andrej Tavcioski', 'Vlaevec', 'Skopjaniste'],
     parkingSpaces: 100,
     takenParkingSpaces: 99,
+    hourlyRate: 50,
+    workingHours: '05:00 - 24:00',
   },
   {
     id: 3,
@@ -58,6 +62,8 @@ export const parkingZones = [
     responsiblePersons: ['David Trajkovski', 'Kumanovecot'],
     parkingSpaces: 36,
     takenParkingSpaces: 5,
+    hourlyRate: 10,
+    workingHours: '12:00 - 17:00',
   },
   {
     id: 4,
@@ -70,6 +76,8 @@ export const parkingZones = [
     ],
     parkingSpaces: 150,
     takenParkingSpaces: 130,
+    hourlyRate: 100,
+    workingHours: '08:00 - 10:00',
   },
   {
     id: 5,
@@ -77,5 +85,7 @@ export const parkingZones = [
     responsiblePersons: ['Nekoj od Silbo'],
     parkingSpaces: 360,
     takenParkingSpaces: 250,
+    hourlyRate: 30,
+    workingHours: '00:00 - 24:00',
   },
 ];

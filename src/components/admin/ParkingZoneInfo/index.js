@@ -1,41 +1,21 @@
-import { Wrapper, RightSideWrapper, EditIcon } from './styles';
+import { useState } from 'react';
 
-import ZoneSector from './ZoneSector';
-import ResponsiblePersonsSector from './ResponsiblePersonsSector';
-import ParkingSpacesSector from './ParkingSpacesSector';
-import { IconButton } from '@mui/material';
+import { Wrapper } from './styles';
 
-const ParkingZoneInfoViewer = ({ zone }) => {
-  console.log(zone);
+import ParkingZoneInfoViewer from '../ParkingZoneInfoViewer';
+import ParkingZoneInfoEdit from '../ParkingZoneInfoEdit';
+
+const ParkingZoneInfo = ({ zone }) => {
+  const [editMode, setEditMode] = useState(false);
   return (
     <Wrapper>
-      <ZoneSector
-        name={zone.zoneName}
-        hourlyRate={zone.hourlyRate}
-        workingHours={zone.workingHours}
-        color={zone.areaColor}
-        centerLocation={zone.location.center}
-        coords={zone.location.coords}
-      />
-      <RightSideWrapper>
-        <IconButton
-          style={{
-            position: 'absolute',
-            top: -68,
-            right: -16,
-            padding: '16px',
-          }}
-        >
-          <EditIcon />
-        </IconButton>
-        <ResponsiblePersonsSector persons={zone.responsiblePersons} />
-        <ParkingSpacesSector
-          parkingSpacesNumber={zone.parkingSpaces}
-          parkingSpacesLocation={zone.parkingSpacesLocation}
-        />
-      </RightSideWrapper>
+      {editMode ? (
+        <ParkingZoneInfoEdit zone={zone} setEditMode={setEditMode} />
+      ) : (
+        <ParkingZoneInfoViewer zone={zone} setEditMode={setEditMode} />
+      )}
     </Wrapper>
   );
 };
 
-export default ParkingZoneInfoViewer;
+export default ParkingZoneInfo;

@@ -110,15 +110,16 @@ export const ModalContainer = styled(Box).attrs({
   width: 400,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  p: 2,
   zIndex: 1000,
   marginBottom: '10%',
-  position: 'relative',
-})``;
+})`
+  padding-bottom: 16px;
+`;
 
 export const ModalTitle = styled(Typography).attrs({
   variant: 'h4',
   fontWeight: 600,
+  textAlign: 'center',
 })``;
 
 export const ModalInputAndLabelWrapper = styled.div`

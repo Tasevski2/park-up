@@ -1,4 +1,10 @@
-import { Wrapper, Title, DividerUnderTitle, TableWrapper } from './styles';
+import {
+  Wrapper,
+  Title,
+  DividerUnderTitle,
+  TableWrapper,
+  Elipsis,
+} from './styles';
 
 const ResponsiblePersonsSector = ({ persons }) => {
   return (
@@ -9,9 +15,9 @@ const ResponsiblePersonsSector = ({ persons }) => {
         <table>
           <thead>
             <tr>
-              <th>Емаил</th>
               <th>Име</th>
               <th>Презиме</th>
+              <th>Повеќе</th>
             </tr>
           </thead>
           <tbody>
@@ -21,22 +27,16 @@ const ResponsiblePersonsSector = ({ persons }) => {
               let lastName = splitted[1] ?? '';
               return (
                 <tr key={index}>
-                  <td>viktor-tasevski@hotmail.com</td>
                   <td>{firstName}</td>
                   <td>{lastName}</td>
+                  <td>
+                    <Elipsis target='_blank' to={`/employees/${index + 1}`}>
+                      ...
+                    </Elipsis>
+                  </td>
                 </tr>
               );
             })}
-            <tr>
-              <td>viktor-tasevski@hotmail.com</td>
-              <td>firstName</td>
-              <td>lastName</td>
-            </tr>
-            <tr>
-              <td>viktor-tasevski@hotmail.com</td>
-              <td>asdsada</td>
-              <td>lastName</td>
-            </tr>
           </tbody>
         </table>
       </TableWrapper>

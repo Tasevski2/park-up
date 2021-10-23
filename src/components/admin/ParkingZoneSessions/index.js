@@ -8,13 +8,53 @@ import {
   KeyValueWrapper,
   StatsKey,
   StatsValue,
+  SearchField,
+  SearchIcon,
 } from './styles';
 import SessionCard from './SessionCard';
 import { sessionStatus } from '../../../config/enums';
 import { sessionsData } from './mockData';
 
+const sortSessions = (a, b) => {
+  // first - yellow/idel, second - red/finished, third - green/active
+  switch (a.status) {
+    case sessionStatus.active:
+      switch (b.status) {
+        case sessionStatus.active:
+          return -1;
+        case sessionStatus.over:
+        case sessionStatus.idle:
+          return 1;
+        default:
+          return 1;
+      }
+    case sessionStatus.over:
+      switch (b.status) {
+        case sessionStatus.active:
+        case sessionStatus.over:
+          return -1;
+        case sessionStatus.idle:
+          return 1;
+        default:
+          return 1;
+      }
+    case sessionStatus.idle:
+      switch (b.status) {
+        case sessionStatus.active:
+        case sessionStatus.over:
+        case sessionStatus.idle:
+          return -1;
+        default:
+          return 1;
+      }
+    default:
+      return -1;
+  }
+};
+
 const ParkingZoneSessions = ({ zone }) => {
-  const [sessions, setSession] = useState(sessionsData);
+  const [filteredSessions, setFilteredSessions] = useState(sessionsData);
+  const [search, setSearch] = useState('');
   const [stats, setStats] = useState({
     activeSessions: 0,
     idleSessions: 0,
@@ -24,7 +64,7 @@ const ParkingZoneSessions = ({ zone }) => {
     let aS = 0;
     let iS = 0;
     let oS = 0;
-    sessions.forEach((s) => {
+    sessionsData.forEach((s) => {
       switch (s.status) {
         case sessionStatus.active:
           aS += 1;
@@ -46,9 +86,22 @@ const ParkingZoneSessions = ({ zone }) => {
     });
   };
 
+  const onChangeSearch = (e) => {
+    let newSearchValue = e.target.value;
+    setSearch(newSearchValue);
+    const filteredData = sessionsData.filter((session) =>
+      session.plate
+        .concat(` ${session.parkingSpaceNumber}`)
+        .toLowerCase()
+        .includes(newSearchValue.trim().toLowerCase())
+    );
+
+    setFilteredSessions(filteredData);
+  };
+
   useEffect(() => {
     setSessionsStats();
-  }, [sessions]);
+  }, [sessionsData]);
 
   return (
     <Wrapper>
@@ -58,12 +111,12 @@ const ParkingZoneSessions = ({ zone }) => {
           {/* PARKING SPACES STATS*/}
           <KeyValueWrapper>
             <StatsKey>Вкупно паркинг места:</StatsKey>
-            <StatsValue>{zone.parkingSpaces}</StatsValue>
+            <StatsValue>{zone.parkingSpacesNumber}</StatsValue>
           </KeyValueWrapper>
           <KeyValueWrapper>
             <StatsKey>Слободни паркинг места:</StatsKey>
             <StatsValue>
-              {zone.parkingSpaces - zone.takenParkingSpaces}
+              {zone.parkingSpacesNumber - zone.takenParkingSpaces}
             </StatsValue>
           </KeyValueWrapper>
           <KeyValueWrapper>
@@ -87,8 +140,15 @@ const ParkingZoneSessions = ({ zone }) => {
           </KeyValueWrapper>
         </Stats>
       </StatsWrapper>
+      <SearchField
+        value={search}
+        onChange={onChangeSearch}
+        InputProps={{
+          startAdornment: <SearchIcon />,
+        }}
+      />
       <SessionsWrapper>
-        {sessions.map((session) => (
+        {filteredSessions.sort(sortSessions).map((session) => (
           <SessionCard key={session.id} {...session} />
         ))}
       </SessionsWrapper>

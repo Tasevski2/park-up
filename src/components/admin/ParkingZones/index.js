@@ -32,8 +32,8 @@ import { roles } from '../../../config/enums';
 import { parkingZones } from './mockData';
 
 const sortDownUp = (a, b) => {
-  const aPercent = a.takenParkingSpaces / a.parkingSpaces;
-  const bPercent = b.takenParkingSpaces / b.parkingSpaces;
+  const aPercent = a.takenParkingSpaces / a.parkingSpacesNumber;
+  const bPercent = b.takenParkingSpaces / b.parkingSpacesNumber;
   if (aPercent > bPercent) {
     return 1;
   } else {
@@ -45,8 +45,8 @@ const sortDownUp = (a, b) => {
 };
 
 const sortUpDown = (a, b) => {
-  const aPercent = a.takenParkingSpaces / a.parkingSpaces;
-  const bPercent = b.takenParkingSpaces / b.parkingSpaces;
+  const aPercent = a.takenParkingSpaces / a.parkingSpacesNumber;
+  const bPercent = b.takenParkingSpaces / b.parkingSpacesNumber;
   if (aPercent > bPercent) {
     return -1;
   } else {
@@ -107,14 +107,12 @@ const ParkingZones = () => {
         <Slide in={isModalOpen}>
           <ModalContainer>
             <IconButton
+              style={{
+                marginLeft: 345,
+              }}
               onClick={() => {
                 setModalInput('');
                 setModalOpen(false);
-              }}
-              style={{
-                position: 'absolute',
-                right: -5,
-                top: -5,
               }}
             >
               <CloseIcon />

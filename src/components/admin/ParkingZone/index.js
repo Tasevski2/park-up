@@ -67,8 +67,8 @@ const ParkingZone = () => {
         {activeComponent === activeComponentEnum.MAPS ? (
           <GoogleMaps
             location={zone.location}
-            parkingSpacesLocation={zone.parkingSpacesLocation}
-            zoneAreaColor={zone.areaColor}
+            parkingSpaces={zone.parkingSpaces}
+            zoneAreaColor={zone.zoneColor}
           />
         ) : (
           <Info zone={zone} />

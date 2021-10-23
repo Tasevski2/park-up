@@ -6,7 +6,7 @@ const ParkingSpaceMarker = ({ text, isTaken }) => (
   <Marker $isTaken={isTaken}>{text}</Marker>
 );
 
-const GoogleMaps = ({ location, parkingSpacesLocation, zoneAreaColor }) => {
+const GoogleMaps = ({ location, parkingSpaces, zoneAreaColor }) => {
   const defaultProps = {
     zoom: 18,
   };
@@ -30,7 +30,7 @@ const GoogleMaps = ({ location, parkingSpacesLocation, zoneAreaColor }) => {
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => drawZonePolygon(map, maps)}
       >
-        {parkingSpacesLocation.map((p, index) => (
+        {parkingSpaces.map((p, index) => (
           <ParkingSpaceMarker
             key={index}
             lat={p.lat}

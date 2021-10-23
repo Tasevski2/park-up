@@ -1,10 +1,10 @@
 export const defaultUser = {
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    zone: 'none',
-    phoneNumber: '',
-    status: 'notWorking',
-    accountActive: false
+  email: '',
+  password: '',
+  firstName: '',
+  lastName: '',
+  zones: [],
+  phoneNumber: '',
+  status: 'notWorking',
+  accountActive: false,
 };

@@ -4,7 +4,7 @@ import backgroundImage from '../../resources/login_background.jpg';
 export const ScreenWrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
   background-color: ${(props) => props.theme.palette.background.whiteSmoke};

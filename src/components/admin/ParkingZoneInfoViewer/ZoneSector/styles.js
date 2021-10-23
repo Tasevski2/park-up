@@ -116,7 +116,7 @@ export const TableWrapper = styled.div`
 
   table tbody {
     display: block;
-    max-height: 150px;
+    max-height: 200px;
     overflow-y: auto;
   }
   tbody::-webkit-scrollbar {

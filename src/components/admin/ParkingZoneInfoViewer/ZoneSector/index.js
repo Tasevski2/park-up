@@ -41,7 +41,12 @@ const ZoneSector = ({
         </KeyValueWrapper>
         <KeyValueWrapper>
           <Key>Работни часови:</Key>
-          <Value>{workingHours ?? ''}</Value>
+          <Value>
+            {workingHours.from < 10
+              ? '0' + workingHours.from
+              : workingHours.from}{' '}
+            - {workingHours.to < 10 ? '0' + workingHours.to : workingHours.to}
+          </Value>
         </KeyValueWrapper>
         <KeyValueWrapper>
           <Key>Боја на зона:</Key>

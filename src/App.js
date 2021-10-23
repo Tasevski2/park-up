@@ -41,7 +41,7 @@ function App(props) {
         break;
     }
   }
-  console.log(publicRoutes);
+
   return (
     <Switch>
       {routes?.map((route, index) => (

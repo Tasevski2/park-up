@@ -10,7 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100%;
+  min-height: 100vh;
   flex: 1;
 `;
 
@@ -81,17 +81,18 @@ export const LogoutIcon = styled(Logout).attrs((props) => ({
 export const HeaderAndMainSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
   width: 100%;
+  padding-left: 70px;
   background-color: ${(props) => props.theme.palette.background.whiteSmoke};
 `;
 
 export const SideMenu = styled.div`
   flex-direction: column;
-  height: 100%;
   width: 70px;
   padding: 20px 10px 0 10px;
   border-right: 1px solid grey;
+  position: fixed;
+  height: 100%;
   background-color: ${(props) => props.theme.palette.primary.main};
 `;
 

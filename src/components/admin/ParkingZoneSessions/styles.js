@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import SIcon from '@mui/icons-material/Search';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -59,12 +61,38 @@ export const StatsValue = styled.p`
   -webkit-text-fill-color: transparent;
 `;
 
+export const SearchField = styled(TextField).attrs({
+  width: '150px',
+  sx: {
+    marginTop: '10px',
+    marginBottom: '20px',
+  },
+})`
+  border: 1px solid ${(props) => props.theme.palette.primary.main};
+  border-radius: 5px;
+  fieldset {
+    border: 0;
+  }
+  input {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 15px 10px;
+    color: ${(props) => props.theme.palette.primary.main};
+  }
+`;
+
+export const SearchIcon = styled(SIcon).attrs((props) => ({
+  sx: {
+    fontSize: '2rem',
+    color: `rgba(0,173,124, 0.4)`, // primary.main in rgb with opacity 0.4
+  },
+}))``;
+
 export const SessionsWrapper = styled.div`
-  height: 45vh;
+  height: auto;
+  max-height: 380px;
   width: 100%;
   overflow: auto;
-  padding-top: 20px;
-
   > div:not(div:first-of-type) {
     margin-top: 24px;
   }

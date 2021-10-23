@@ -23,19 +23,23 @@ const ParkingZoneCard = ({ info }) => {
           {info.responsiblePersons.slice(0, 1).map((person, index) => (
             <Value key={index}>{person}</Value>
           ))}
-          {info.responsiblePersons.length > 1 ? <Value>...</Value> : null}
+          {info.responsiblePersons.length > 1 ? (
+            <Value>...</Value>
+          ) : (
+            <Value style={{ height: '23px' }} />
+          )}
         </InfoWrapper>
         <InfoWrapper>
           <Label>Број на паркинг места:</Label>
-          <Value>{info.parkingSpaces}</Value>
+          <Value>{info.parkingSpacesNumber}</Value>
         </InfoWrapper>
         <ProgressBar
           percent={Math.floor(
-            (info.takenParkingSpaces / info.parkingSpaces) * 100
+            (info.takenParkingSpaces / info.parkingSpacesNumber) * 100
           )}
           label={() => (
             <ProgressBarLabel>
-              {info.takenParkingSpaces}/{info.parkingSpaces}
+              {info.takenParkingSpaces}/{info.parkingSpacesNumber}
             </ProgressBarLabel>
           )}
         />

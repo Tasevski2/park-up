@@ -3,11 +3,14 @@ export const parkingZones = [
     id: 1,
     zoneName: 'Zona 1',
     responsiblePersons: ['Viktor Tasevski', 'Dracevcanec'], // THIS SHOULD BE IN THE ParkingZones Call Only for the Card. For the ZoneInfo We need More Data for The Employees. This should be array of employee objects.
-    parkingSpaces: 69,
+    parkingSpacesNumber: 69,
     takenParkingSpaces: 34,
     hourlyRate: 30,
-    workingHours: '05:00 - 24:00',
-    areaColor: '#FFD700',
+    workingHours: {
+      from: 5,
+      to: 24,
+    },
+    zoneColor: '#FFD700',
     location: {
       center: {
         lat: 41.937907,
@@ -20,7 +23,7 @@ export const parkingZones = [
         { lat: 41.939031, lng: 21.511914 },
       ],
     },
-    parkingSpacesLocation: [
+    parkingSpaces: [
       {
         lat: '41.938271',
         lng: '21.512380',
@@ -51,16 +54,19 @@ export const parkingZones = [
     id: 2,
     zoneName: 'Zona 2',
     responsiblePersons: ['Andrej Tavcioski', 'Vlaevec', 'Skopjaniste'],
-    parkingSpaces: 100,
+    parkingSpacesNumber: 100,
     takenParkingSpaces: 99,
     hourlyRate: 50,
-    workingHours: '05:00 - 24:00',
+    workingHours: {
+      from: '5',
+      to: '24',
+    },
   },
   {
     id: 3,
     zoneName: 'Zona 3',
     responsiblePersons: ['David Trajkovski', 'Kumanovecot'],
-    parkingSpaces: 36,
+    parkingSpacesNumber: 36,
     takenParkingSpaces: 5,
     hourlyRate: 10,
     workingHours: '12:00 - 17:00',
@@ -74,18 +80,24 @@ export const parkingZones = [
       'Nekoj tret od POC',
       'Nekoj cetvrt od POC',
     ],
-    parkingSpaces: 150,
+    parkingSpacesNumber: 150,
     takenParkingSpaces: 130,
     hourlyRate: 100,
-    workingHours: '08:00 - 10:00',
+    workingHours: {
+      from: '5',
+      to: '24',
+    },
   },
   {
     id: 5,
     zoneName: 'Zona 5',
     responsiblePersons: ['Nekoj od Silbo'],
-    parkingSpaces: 360,
+    parkingSpacesNumber: 360,
     takenParkingSpaces: 250,
     hourlyRate: 30,
-    workingHours: '00:00 - 24:00',
+    workingHours: {
+      from: '5',
+      to: '24',
+    },
   },
 ];

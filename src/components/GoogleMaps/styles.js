@@ -4,7 +4,7 @@ import { mobile_max_width } from '../../config/utilities';
 export const Wrapper = styled.div`
   width: 100%;
   height: 69vh;
-  padding: 0 30px;
+  padding: 0 4vh;
 
   @media (max-width: ${mobile_max_width}px) {
     height: 50vh;

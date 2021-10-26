@@ -6,6 +6,11 @@ import Logout from '@mui/icons-material/Logout';
 import Dashboard from '@mui/icons-material/Dashboard';
 import SupervisorAccount from '@mui/icons-material/SupervisorAccount';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Box from '@mui/material/Box';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseI from '@mui/icons-material/Close';
+import { mobile_max_width } from '../../config/utilities';
+import backgroundImage from '../../resources/login_background.jpg';
 
 export const Container = styled.div`
   display: flex;
@@ -19,13 +24,20 @@ export const Header = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px 30px;
+  padding: 10px 7%;
+  position: fixed;
+  z-index: 100;
+  background-color: ${(props) => props.theme.palette.background.whiteSmoke};
+  @media (max-width: ${mobile_max_width}px) {
+    padding-left: 15px;
+  }
 `;
 
 export const DividerUnderHeader = styled(Divider).attrs({
   variant: 'middle',
   sx: {
-    margin: '0 25px',
+    margin: '0 5%',
+    marginTop: '75px',
     borderWidth: '2px',
     borderBottomWidth: 'thin',
   },
@@ -74,7 +86,7 @@ export const UserName = styled(Typography).attrs({
 export const LogoutIcon = styled(Logout).attrs((props) => ({
   sx: {
     fontSize: 30,
-    color: `${props.theme.palette.error.light}`,
+    color: `${props.theme.palette.error.main}`,
   },
 }))``;
 
@@ -84,6 +96,10 @@ export const HeaderAndMainSectionWrapper = styled.div`
   width: 100%;
   padding-left: 70px;
   background-color: ${(props) => props.theme.palette.background.whiteSmoke};
+
+  @media (max-width: ${mobile_max_width}px) {
+    padding-left: 0;
+  }
 `;
 
 export const SideMenu = styled.div`
@@ -128,3 +144,84 @@ export const MainSection = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const MenuBurgerIcon = styled(MenuIcon).attrs((props) => ({
+  sx: {
+    fontSize: 50,
+    color: `${props.theme.palette.primary.main}`,
+  },
+}))``;
+
+export const DrawerContainer = styled(Box).attrs((props) => ({
+  sx: {
+    width: '250px',
+    height: '100%',
+    backgroundImage: `url(${backgroundImage})`,
+  },
+}))`
+  ul:first-of-type {
+    padding-top: 35px;
+    span {
+      font-size: 1.5rem;
+      color: whiteSmoke;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    svg {
+      margin: 0;
+      color: whiteSmoke;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  ul:last-of-type {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+
+    span {
+      font-size: 1rem;
+      color: whiteSmoke;
+      font-weight: 600;
+    }
+    li:first-of-type svg {
+      color: whiteSmoke;
+    }
+
+    li:last-of-type {
+      span {
+        color: ${(props) => props.theme.palette.error.main};
+      }
+    }
+  }
+`;
+
+export const DividerUnderListItem = styled(Divider).attrs({
+  variant: 'middle',
+  sx: {
+    margin: '5px 5%',
+    borderWidth: '2px',
+    borderBottomWidth: 'thin',
+    borderColor: 'whiteSmoke',
+  },
+})``;
+
+export const DividerUnderList = styled(Divider).attrs({
+  variant: 'fullWidth',
+  sx: {
+    marginTop: '15px',
+    marginBottom: '25px',
+    borderWidth: '2px',
+    borderBottomWidth: 'thin',
+    borderColor: 'whiteSmoke',
+  },
+})``;
+
+export const CloseIcon = styled(CloseI).attrs((props) => ({
+  sx: {
+    fontSize: 50,
+    color: `${props.theme.palette.error.main}`,
+  },
+}))``;

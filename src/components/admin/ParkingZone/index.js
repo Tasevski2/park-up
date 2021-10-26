@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { IconButton } from '@mui/material';
@@ -18,6 +18,7 @@ import {
 } from './styles';
 
 import { roles } from '../../../config/enums';
+import { UserContext } from '../../../context/UserContext';
 
 import { parkingZones } from '../ParkingZones/mockData';
 
@@ -27,14 +28,11 @@ const activeComponentEnum = {
 };
 
 const ParkingZone = () => {
+  const { user } = useContext(UserContext);
   const { zone_id } = useParams();
   const [activeComponent, setActiveComponent] = useState(
     activeComponentEnum.MAPS
   );
-
-  const user = {
-    role: 'ROLE_ADMIN',
-  };
 
   const zone = parkingZones.find((z) => z.id === parseInt(zone_id));
   const Info =
@@ -43,7 +41,9 @@ const ParkingZone = () => {
     <>
       <NamesWrapper>
         <ParkingAndZoneName>Паркинг - Дебар Маало</ParkingAndZoneName>
-        <ParkingAndZoneName>{zone?.zoneName}</ParkingAndZoneName>
+        <ParkingAndZoneName className='zone-name'>
+          Зона - {zone?.zoneName}
+        </ParkingAndZoneName>
       </NamesWrapper>
 
       <DividerUnderNames />

@@ -2,9 +2,15 @@ import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import { LineProgressBar } from '@frogress/line';
+import { mobile_max_width } from '../../../../config/utilities';
 
 export const ParkingZoneWrapper = styled(Grid)`
   height: 350px;
+
+  @media (max-width: ${mobile_max_width}px) {
+    padding-left: 15px !important;
+    padding-right: 15px;
+  }
 `;
 
 export const Container = styled.div`

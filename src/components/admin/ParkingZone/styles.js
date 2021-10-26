@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Typography, Divider } from '@mui/material';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
+import { mobile_max_width } from '../../../config/utilities';
 
 export const NamesWrapper = styled.div`
   margin-bottom: 10px;
@@ -10,7 +11,14 @@ export const NamesWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 175px;
+  padding: 10px 10%;
+
+  @media (max-width: ${mobile_max_width}px) {
+    flex-direction: column;
+    .zone-name {
+      margin-top: 30px;
+    }
+  }
 `;
 
 export const ParkingAndZoneName = styled(Typography).attrs((props) => ({
@@ -23,7 +31,7 @@ export const ParkingAndZoneName = styled(Typography).attrs((props) => ({
 export const DividerUnderNames = styled(Divider).attrs({
   variant: 'middle',
   sx: {
-    margin: '0 160px',
+    margin: '0 9%',
     borderWidth: '2px',
     borderBottomWidth: 'thin',
   },

@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CIcon from '@mui/icons-material/Close';
+import { mobile_max_width } from '../../../config/utilities';
 
 export const FiltersWrapper = styled.div`
   margin-bottom: 10px;
@@ -18,7 +19,11 @@ export const FiltersWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 175px;
+  padding: 10px 10%;
+
+  @media (max-width: ${mobile_max_width}px) {
+    flex-direction: column;
+  }
 `;
 
 export const SortingArrowsWrapper = styled.div`
@@ -26,6 +31,10 @@ export const SortingArrowsWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   position: relative;
+
+  @media (max-width: ${mobile_max_width}px) {
+    margin-top: 30px;
+  }
 `;
 
 export const ArrowDown = styled(ArrowDownwardIcon).attrs({})`
@@ -61,7 +70,7 @@ export const ClearSortIcon = styled(ClearIcon).attrs({})`
 export const DividerUnderFilters = styled(Divider).attrs({
   variant: 'middle',
   sx: {
-    margin: '0 160px',
+    margin: '0 9%',
     borderWidth: '2px',
     borderBottomWidth: 'thin',
   },
@@ -85,7 +94,12 @@ export const ParkingZonesWrapper = styled(Grid)`
   margin: 0;
   height: 100%;
   width: 100%;
-  padding: 0 40px 0 0;
+  padding: 0 40px 30px 0;
+
+  @media (max-width: ${mobile_max_width}px) {
+    padding-right: 0;
+    justify-content: center;
+  }
 `;
 
 export const AddParkingZoneCard = styled(ParkingZoneWrapper)``;

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Typography, Divider } from '@mui/material';
-import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 

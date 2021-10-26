@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Button from '@mui/material/Button';
+import { mobile_max_width } from '../../../../config/utilities';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,11 +15,24 @@ export const Wrapper = styled.div`
   color: white;
   font-size: 1rem;
   box-shadow: 0 10px 5px -2px ${(props) => props.theme.palette.background.shadow};
+
+  @media (max-width: ${mobile_max_width}px) {
+    height: 335px;
+    border-radius: 100px;
+    flex-direction: column;
+  }
 `;
 
 export const SessionChildWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: ${mobile_max_width}px) {
+    margin-top: 15px;
+    :last-of-type {
+      margin-top: 30px;
+    }
+  }
 `;
 
 export const SessionChildTitle = styled.p`

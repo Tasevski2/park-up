@@ -84,11 +84,11 @@ const OverCard = ({ id, start, end, plate, status, parkingSpaceNumber }) => {
   return (
     <Wrapper style={{ backgroundColor: sessionCardColors.over }}>
       <SessionChildWrapper>
-        <SessionChildWrapper>
+        <SessionChildWrapper style={{ margin: 0 }}>
           <SessionChildTitle>Почеток</SessionChildTitle>
           <SeessionChildData>{start}</SeessionChildData>
         </SessionChildWrapper>
-        <SessionChildWrapper>
+        <SessionChildWrapper style={{ marginTop: '5px' }}>
           <SessionChildTitle>Крај</SessionChildTitle>
           <SeessionChildData>{end}</SeessionChildData>
         </SessionChildWrapper>

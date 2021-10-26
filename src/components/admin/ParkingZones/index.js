@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   FiltersWrapper,
   SortingArrowsWrapper,
@@ -28,6 +28,7 @@ import { IconButton, Slide } from '@mui/material';
 import ParkingZoneCard from './ParkingZoneCard';
 
 import { roles } from '../../../config/enums';
+import { UserContext } from '../../../context/UserContext';
 
 import { parkingZones } from './mockData';
 
@@ -65,14 +66,12 @@ const sortByName = (a, b) => {
 };
 
 const ParkingZones = () => {
+  const { user } = useContext(UserContext);
   const [isArrowUpUp, setIsArrowUpUp] = useState(false);
   const [isArrowDownUp, setIsArrowDownUp] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalInput, setModalInput] = useState('');
 
-  const user = {
-    role: 'ROLE_ADMIN',
-  };
   const sortFunc = isArrowUpUp
     ? sortDownUp
     : isArrowDownUp

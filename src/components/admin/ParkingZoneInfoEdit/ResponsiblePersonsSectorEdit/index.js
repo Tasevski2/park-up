@@ -21,7 +21,7 @@ import {
 } from './styles';
 import Modal from '@mui/material/Modal';
 import Backdrop from '@mui/material/Backdrop';
-import { IconButton, Slide, Divider } from '@mui/material';
+import { IconButton, Slide } from '@mui/material';
 
 const AddEmployeeCard = ({ id, email, firstName, lastName, handleChange }) => (
   <ModalCard>

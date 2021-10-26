@@ -1,9 +1,14 @@
 import styled from 'styled-components';
+import { mobile_max_width } from '../../config/utilities';
 
 export const Wrapper = styled.div`
   width: 100%;
   height: 69vh;
   padding: 0 30px;
+
+  @media (max-width: ${mobile_max_width}px) {
+    height: 50vh;
+  }
 `;
 
 export const Marker = styled.div`

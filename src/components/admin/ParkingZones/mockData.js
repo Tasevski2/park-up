@@ -74,12 +74,7 @@ export const parkingZones = [
   {
     id: 4,
     zoneName: 'Zona 4',
-    responsiblePersons: [
-      'Nekoj od POC',
-      'Nekoj drug od POC',
-      'Nekoj tret od POC',
-      'Nekoj cetvrt od POC',
-    ],
+    responsiblePersons: ['Nekoj od POC'],
     parkingSpacesNumber: 150,
     takenParkingSpaces: 130,
     hourlyRate: 100,
@@ -91,7 +86,7 @@ export const parkingZones = [
   {
     id: 5,
     zoneName: 'Zona 5',
-    responsiblePersons: ['Nekoj od Silbo'],
+    responsiblePersons: [],
     parkingSpacesNumber: 360,
     takenParkingSpaces: 250,
     hourlyRate: 30,

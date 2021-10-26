@@ -16,7 +16,7 @@ import { sessionStatus } from '../../../config/enums';
 import { sessionsData } from './mockData';
 
 const sortSessions = (a, b) => {
-  // first - yellow/idel, second - red/finished, third - green/active
+  // first - yellow/idle, second - red/finished, third - green/active
   switch (a.status) {
     case sessionStatus.active:
       switch (b.status) {

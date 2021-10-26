@@ -17,7 +17,7 @@ import { Typography } from '@mui/material';
 export const TableContainer = styled(TContainer).attrs({
   component: Paper,
 })`
-  max-width: 1000px;
+  max-width: 1100px;
   margin-top: 20px;
   margin-left: 30px;
   box-shadow: 15px 15px 10px ${(props) => props.theme.palette.background.shadow};

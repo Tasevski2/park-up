@@ -11,6 +11,8 @@ import {
   ProgressBarLabel,
 } from './styles';
 
+import DropdownViewer from '../../../DropdownViewer';
+
 const ParkingZoneCard = ({ info }) => {
   let history = useHistory();
 
@@ -20,16 +22,9 @@ const ParkingZoneCard = ({ info }) => {
         <ZoneName>{info.zoneName}</ZoneName>
         <InfoWrapper>
           <Label>Одговорни лица:</Label>
-          {info.responsiblePersons.slice(0, 1).map((person, index) => (
-            <Value key={index}>{person}</Value>
-          ))}
-          {info.responsiblePersons.length > 1 ? (
-            <Value>...</Value>
-          ) : (
-            <Value style={{ height: '23px' }} />
-          )}
+          <DropdownViewer data={info.responsiblePersons} />
         </InfoWrapper>
-        <InfoWrapper>
+        <InfoWrapper style={{ marginTop: '30px' }}>
           <Label>Број на паркинг места:</Label>
           <Value>{info.parkingSpacesNumber}</Value>
         </InfoWrapper>

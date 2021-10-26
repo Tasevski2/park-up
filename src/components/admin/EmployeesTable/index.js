@@ -18,6 +18,7 @@ import {
 } from './styles';
 
 import InputAdornment from '@mui/material/InputAdornment';
+import DropdownViewer from '../../DropdownViewer';
 
 import { employeeStatus, accountStatus } from '../../../config/enums';
 
@@ -93,7 +94,9 @@ const EmployeesTable = () => {
               <TableCell align='center'>
                 {employeeData.firstName} {employeeData.lastName}
               </TableCell>
-              <TableCell align='center'>{employeeData.zone}</TableCell>
+              <TableCell align='center' style={{ padding: 0, width: '200px' }}>
+                <DropdownViewer data={employeeData.zones} width='200px' />
+              </TableCell>
               <TableCell align='center'>{employeeData.phoneNumber}</TableCell>
               <TableCell align='center'>
                 {employeeStatus[employeeData.status]}

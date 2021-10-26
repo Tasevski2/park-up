@@ -4,7 +4,7 @@ export const sessionsData = [
   {
     id: 1,
     start: moment().format('hh:mm - DD.MM.yyyy'),
-    plate: 'SK-8190-AV',
+    plkate: 'SK-8190-AV',
     status: 'active',
     parkingSpaceNumber: 'A31',
   },

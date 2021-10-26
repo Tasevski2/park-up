@@ -22,7 +22,7 @@ import {
 
 import IconButton from '@mui/material/IconButton';
 
-import logo from '../../resources/logo_2_transparent_bg.jpg';
+import logo from '../../resources/logo_2_transparent_bg.png';
 import { roles } from '../../config/enums';
 import DestinationComponent from '../../utils/DestinationComponent';
 import onClickRouting from '../../utils/onClickRouting';

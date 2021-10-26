@@ -2,6 +2,7 @@ export const employeeStatus = {
   notWorking: 'Не работи',
   working: 'Работи',
   vacation: 'На одмор',
+  sick: 'На боледување',
 };
 
 export const accountStatus = {

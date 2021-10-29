@@ -21,22 +21,31 @@ import InputAdornment from '@mui/material/InputAdornment';
 import DropdownViewer from '../../DropdownViewer';
 
 import { employeeStatus, accountStatus } from '../../../config/enums';
+import useGetData from '../../../hooks/useGetData';
+import useToggleAccountStatus from '../../../hooks/useToggleAccountStatus';
+import AbsoluteLoader from '../../Loaders/AbsoluteLoader';
 
 import { employees } from './mockData';
 import { useState } from 'react';
 
 const EmployeesTable = () => {
   let history = useHistory();
+  const { toggleAccountStatus, isLoading: isLoadingAccountStatus } =
+    useToggleAccountStatus();
+  const { data, isLoading } = useGetData({ url: `/users` }); // TODO
   const [filteredEmployees, setFilteredEmployees] = useState(employees);
   const [search, setSearch] = useState('');
-
+  console.log(data, isLoading);
   const onRowClick = (id) => {
     history.push(`/employees/${id}`);
   };
-
+  const changeAccoutStatusOnEmployee = ({ id }) => {
+    const emp = filteredEmployees.find((e) => e.id === id);
+    emp.accountActive = !emp.accountActive;
+  };
   const onAccountStatusClick = (event, id) => {
     event.stopPropagation();
-    console.log(`Disable or activate user acc with id: ${id}`);
+    toggleAccountStatus({ id, changeAccoutStatusOnEmployee });
   };
 
   const onChangeSearch = (e) => {
@@ -55,6 +64,16 @@ const EmployeesTable = () => {
   return (
     <TableContainer>
       <TableHeaderWrapper>
+        {isLoadingAccountStatus ? (
+          <AbsoluteLoader
+            containerStyle={{
+              position: 'absolute',
+              left: '65%',
+              width: '42px',
+              height: '42px',
+            }}
+          />
+        ) : null}
         <TableTitle variant='h5'>Вработени</TableTitle>
         <SearchField
           value={search}

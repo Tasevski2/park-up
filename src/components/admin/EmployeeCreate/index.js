@@ -24,8 +24,11 @@ import {
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
+import AbsoluteLoader from '../../Loaders/AbsoluteLoader';
 
 import { employeeStatus } from '../../../config/enums';
+import useGetData from '../../../hooks/useGetData';
+import useCreateEmployee from '../../../hooks/useCreateEmployee';
 
 import { defaultUser } from '../../../config/defaultUser';
 
@@ -40,7 +43,10 @@ const MenuProps = {
 const EmployeeCreate = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   let history = useHistory();
-
+  const { data: zonesData, isLoading: isLoadingZonesData } = useGetData({
+    url: `/albums/1`,
+  }); // TODO RENAME THE VARIABLES AND CHANGE THE URL
+  const { createEmployee } = useCreateEmployee();
   const { data: employeeEditableData, onFormChange: setEmployeeEditableData } =
     useForm({ ...defaultUser });
   const [accStatus, setAccStatus] = useState(defaultUser.accountActive);
@@ -71,7 +77,7 @@ const EmployeeCreate = () => {
       accountActive: accStatus,
       zones: zones,
     };
-    console.log('Created employee: ', changedEmployee);
+    createEmployee({ employee: changedEmployee });
   };
   const handleZonesChange = (event) => {
     const {
@@ -156,6 +162,17 @@ const EmployeeCreate = () => {
         </LabelAndInputWrapper>
       </RowWrapper>
       <RowWrapper>
+        {isLoadingZonesData ? (
+          <AbsoluteLoader
+            containerStyle={{
+              position: 'absolute',
+              left: '310px',
+              bottom: '5px',
+              width: '40px',
+              height: '40px',
+            }}
+          />
+        ) : null}
         <LabelAndInputWrapper>
           <Label>Одговорен за</Label>
           <Dropdown

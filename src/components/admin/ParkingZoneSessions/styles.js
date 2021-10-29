@@ -101,6 +101,7 @@ export const SearchIcon = styled(SIcon).attrs((props) => ({
 
 export const SessionsWrapper = styled.div`
   height: auto;
+  min-height: 240px;
   max-height: 380px;
   width: 100%;
   overflow: auto;

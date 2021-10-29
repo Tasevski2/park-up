@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Wrapper,
   Title,
@@ -13,7 +13,11 @@ import {
 } from './styles';
 import SessionCard from './SessionCard';
 import { sessionStatus } from '../../../config/enums';
+import useGetSessions from '../../../hooks/useGetSessions';
+import AbsoluteLoader from '../../Loaders/AbsoluteLoader';
+
 import { sessionsData } from './mockData';
+import useActivateSession from '../../../hooks/useActivateSession';
 
 const sortSessions = (a, b) => {
   // first - yellow/idle, second - red/finished, third - green/active
@@ -53,18 +57,23 @@ const sortSessions = (a, b) => {
 };
 
 const ParkingZoneSessions = ({ zone }) => {
-  const [filteredSessions, setFilteredSessions] = useState(sessionsData);
+  const { isLoading: isLoadingActivateSession, activateSession } =
+    useActivateSession();
+  const { data: sessions, isLoading: isLoadingSessions } = useGetSessions(); // TODO REPLACE IT WITH THE REAL ONE
+  const [mockSessionsData, setMockSessionsData] = useState([...sessionsData]);
+  const newState = useRef([...sessionsData]);
   const [search, setSearch] = useState('');
   const [stats, setStats] = useState({
     activeSessions: 0,
     idleSessions: 0,
     overSessions: 0,
   });
+
   const setSessionsStats = () => {
     let aS = 0;
     let iS = 0;
     let oS = 0;
-    sessionsData.forEach((s) => {
+    mockSessionsData.forEach((s) => {
       switch (s.status) {
         case sessionStatus.active:
           aS += 1;
@@ -86,22 +95,29 @@ const ParkingZoneSessions = ({ zone }) => {
     });
   };
 
-  const onChangeSearch = (e) => {
-    let newSearchValue = e.target.value;
-    setSearch(newSearchValue);
-    const filteredData = sessionsData.filter((session) =>
-      session.plate
-        .concat(` ${session.parkingSpaceNumber}`)
-        .toLowerCase()
-        .includes(newSearchValue.trim().toLowerCase())
-    );
+  const onActivateSession = ({ id, parkingSpaceNumber }) => {
+    const updatedSession = mockSessionsData.find((s) => s.id === id);
+    updatedSession.parkingSpaceNumber = parkingSpaceNumber;
+    updatedSession.status = sessionStatus.active;
+  };
 
-    setFilteredSessions(filteredData);
+  const handleActivateSession = ({ id, parkingSpaceNumber }) => {
+    activateSession({ id, parkingSpaceNumber, onActivateSession });
+  };
+
+  const onDeleteSession = ({ id }) => {
+    console.log(`STARTED FILTERING ${id}`);
+    newState.current = newState.current.filter((s) => s.id !== id);
+    setMockSessionsData(newState.current);
+    console.log(newState.current);
+    console.log(`ENDED FILTERING ${id}`);
+    // console.log(`STATE:`, mockSessionsData);
+    // TODO SET THE MAIN DATA FIRST THEN setFilteredSessions(MAIN DATA)
   };
 
   useEffect(() => {
     setSessionsStats();
-  }, [sessionsData]);
+  }, [mockSessionsData]);
 
   return (
     <Wrapper>
@@ -142,15 +158,42 @@ const ParkingZoneSessions = ({ zone }) => {
       </StatsWrapper>
       <SearchField
         value={search}
-        onChange={onChangeSearch}
+        onChange={(e) => setSearch(e.target.value)}
         InputProps={{
           startAdornment: <SearchIcon />,
         }}
       />
       <SessionsWrapper>
-        {filteredSessions.sort(sortSessions).map((session) => (
-          <SessionCard key={session.id} {...session} />
-        ))}
+        {isLoadingSessions ? (
+          <AbsoluteLoader
+            containerStyle={{
+              width: '150px',
+              height: '150px',
+              margin: 'auto',
+              marginTop: '50px',
+            }}
+          />
+        ) : (
+          <>
+            {mockSessionsData
+              .filter((session) =>
+                session.plate
+                  .concat(` ${session.parkingSpaceNumber}`)
+                  .toLowerCase()
+                  .includes(search.trim().toLowerCase())
+              )
+              .sort(sortSessions)
+              .map((session) => (
+                <SessionCard
+                  key={session.id}
+                  {...session}
+                  handleActivateSession={handleActivateSession}
+                  isLoadingActivateSession={isLoadingActivateSession}
+                  onDeleteSession={onDeleteSession}
+                />
+              ))}
+          </>
+        )}
       </SessionsWrapper>
     </Wrapper>
   );

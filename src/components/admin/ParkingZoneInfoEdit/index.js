@@ -22,11 +22,20 @@ import ParkingSpacesSectorEdit from './ParkingSpacesSectorEdit';
 import { IconButton, Fade } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Backdrop from '@mui/material/Backdrop';
+import useGetData from '../../../hooks/useGetData';
+import useDeleteZone from '../../../hooks/useDeleteZone';
+import useUpdateZone from '../../../hooks/useUpdateZone';
+import AbsoluteLoader from '../../Loaders/AbsoluteLoader';
 
-import { employeesAddData, mockResponsiblePersons } from './mockData';
+import { employeesAddData } from './mockData';
 
-const ParkingZoneInfoEdit = ({ zone, setEditMode }) => {
-  const history = useHistory();
+const ParkingZoneInfoEdit = ({ zone, setEditMode, setZone }) => {
+  const { deleteZone, isLoading: isLoadingDeleteZone } = useDeleteZone();
+  const { updateZone, isLoading: isLoadingUpdateZone } = useUpdateZone();
+  const {
+    data: responsiblePersonsData,
+    isLoading: isLoadingresponsiblePersonsData,
+  } = useGetData({ url: `/posts/${zone.id}/comments` }); // TODO ALL EMPLOYEES WHICH COULD BE ADDED TO RESPONSIBLE PERSONS
   // ZoneSectorEdit
   const { data: zoneSectorData, onFormChange: setZoneSectorData } = useForm({
     zoneName: zone.zoneName,
@@ -77,11 +86,10 @@ const ParkingZoneInfoEdit = ({ zone, setEditMode }) => {
   // ResponsiblePersonSectorEdit
 
   const [responsiblePersons, setResponsiblePersons] = useState(
-    // TODO TAKE DATA FROM ZONE
-    mockResponsiblePersons
+    zone.responsiblePersons
   );
   const [employeesDataModal, setEmployeesDataModal] = useState(() => {
-    const responsiblePersonsId = mockResponsiblePersons.map((p) => p.id);
+    const responsiblePersonsId = zone.responsiblePersons.map((p) => p.id);
     const filteredEmployees = employeesAddData.filter(
       (emp) => !responsiblePersonsId.includes(emp.id)
     );
@@ -217,10 +225,10 @@ const ParkingZoneInfoEdit = ({ zone, setEditMode }) => {
       },
       parkingSpaces: parkingSpaces,
       parkingSpacesNumber: parkingSpacesNumber,
-      responsiblePersons: responsiblePersons.map((rp) => rp.id),
+      responsiblePersons: responsiblePersons,
     };
-    console.log(editedZoneN);
-    setEditMode(false);
+
+    updateZone({ zone: editedZoneN, setEditMode, setZone, setModal });
   };
 
   const handleSaveChanges = () => {
@@ -238,8 +246,7 @@ const ParkingZoneInfoEdit = ({ zone, setEditMode }) => {
   // DELETE ZONE BUTTON MODAL HANDLING
 
   const handleDeleteZoneRightClick = () => {
-    console.log(`Zone with ID: ${zone.id} will be deleted!`);
-    history.push('/');
+    deleteZone({ id: zone.id });
   };
 
   const handleDeleteZone = () => {
@@ -281,15 +288,28 @@ const ParkingZoneInfoEdit = ({ zone, setEditMode }) => {
               <CloseIcon />
             </IconButton>
             <ModalTitle>{modal.title}</ModalTitle>
-            <ModalDescription>{modal.description}</ModalDescription>
-            <ButtonsWrapper>
-              <ModalButton onClick={modal.btnLeftOnClick}>
-                {modal.btnLeftText}
-              </ModalButton>
-              <ModalButton onClick={modal.btnRightOnClick}>
-                {modal.btnRightText}
-              </ModalButton>
-            </ButtonsWrapper>
+            {isLoadingDeleteZone || isLoadingUpdateZone ? (
+              <AbsoluteLoader
+                containerStyle={{
+                  width: '150px',
+                  height: '150px',
+                  margin: 'auto',
+                  marginTop: '60px',
+                }}
+              />
+            ) : (
+              <>
+                <ModalDescription>{modal.description}</ModalDescription>
+                <ButtonsWrapper>
+                  <ModalButton onClick={modal.btnLeftOnClick}>
+                    {modal.btnLeftText}
+                  </ModalButton>
+                  <ModalButton onClick={modal.btnRightOnClick}>
+                    {modal.btnRightText}
+                  </ModalButton>
+                </ButtonsWrapper>
+              </>
+            )}
           </ModalContainer>
         </Fade>
       </Modal>
@@ -312,6 +332,7 @@ const ParkingZoneInfoEdit = ({ zone, setEditMode }) => {
         <ResponsiblePersonsSectorEdit
           responsiblePersons={responsiblePersons}
           employeesDataModal={employeesDataModal}
+          isLoadingresponsiblePersonsData={isLoadingresponsiblePersonsData}
           handleChange={handleEmployeesAndResponsiblePersonsChange}
         />
         <ParkingSpacesSectorEdit

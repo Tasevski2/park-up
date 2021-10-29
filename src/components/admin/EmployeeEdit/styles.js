@@ -15,6 +15,7 @@ export const EmployeeEditWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 800px;
+  height: 693px;
   border: 1px solid whiteSmoke;
   border-radius: 10px;
   padding: 10px 20px;
@@ -35,6 +36,7 @@ export const RowWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 25px;
+  position: relative;
 `;
 
 export const LabelAndInputWrapper = styled.div``;

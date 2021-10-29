@@ -1,15 +1,19 @@
-import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import DestinationComponent from './utils/DestinationComponent';
 
+import AbsoluteLoader from './components/Loaders/AbsoluteLoader';
 import AdminHomeScreen from './screens/AdminHomeScreen';
 import AuthScreenImported from './screens/AuthScreen';
-
+import Alert from './components/Alert';
+import BackgropLoader from './components/Loaders/BackdropLoader';
 import { roles } from './config/enums';
 import { UserContext } from './context/UserContext';
 import { AccessoriesContext } from './context/AccessoriesContext';
 import useIsMobile from './hooks/useIsMobile';
+import { useState } from 'react';
+
+import useFindUser from './hooks/useFindUser';
 
 const AuthScreen = new DestinationComponent('/', AuthScreenImported, true);
 const AdminEmployeeHomeScreen = new DestinationComponent('/', AdminHomeScreen);
@@ -24,16 +28,26 @@ const userRoutes = [
 const adminAndEmployeeRoutes = [AdminEmployeeHomeScreen];
 
 function App(props) {
-  const { isMobile } = useIsMobile();
-
-  const user = {
-    firstName: 'Виктор',
-    lastName: 'Тасевски',
-    role: 'ROLE_EMPLOYEE',
+  const [alertData, setAlertData] = useState({
+    type: 'error',
+    msg: 'Не Сте Логирани!',
+  });
+  const setAlert = ({ type, msg }) => {
+    setAlertData({ type, msg });
+    setIsAlertOpen(true);
   };
+  // const { user, setUser, isLoading: isLoadingUser } = useFindUser({ setAlert });
+  const { isMobile } = useIsMobile();
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isBackdropLoaderOpen, setIsBackdropLoaderOpen] = useState(false);
 
-  // const user = null;
-  console.log(isMobile);
+  const [user, setUser] = useState({
+    firstName: 'Виктор',
+    lastName: 'Тасевски', //   TOOD DELETE THIS THIS IS FOR MOCKING
+    role: 'ROLE_ADMIN',
+  });
+
+  const isLoadingUser = false; // TODO DELETE IT NO USE
   let routes = publicRoutes;
   if (user) {
     switch (user.role) {
@@ -48,10 +62,21 @@ function App(props) {
         break;
     }
   }
-
   return (
-    <UserContext.Provider value={{ user }}>
-      <AccessoriesContext.Provider value={{ isMobile }}>
+    <UserContext.Provider value={{ user, setUser, isLoadingUser }}>
+      <AccessoriesContext.Provider
+        value={{ isMobile, setAlert, setIsBackdropLoaderOpen }}
+      >
+        <BackgropLoader
+          isBackdropLoaderOpen={isBackdropLoaderOpen}
+          isMobile={isMobile}
+        />
+        <Alert
+          isOpen={isAlertOpen}
+          setIsOpen={setIsAlertOpen}
+          type={alertData.type}
+          msg={alertData.msg}
+        />
         <Switch>
           {routes?.map((route, index) => (
             <Route key={index} path={route.path} component={route.component} />

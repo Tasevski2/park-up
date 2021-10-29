@@ -30,18 +30,3 @@ export const employeesAddData = [
     lastName: 'Tas',
   },
 ];
-
-export const mockResponsiblePersons = [
-  {
-    id: 1,
-    email: 'viktor-tasevski@hotmail.com',
-    firstName: 'Viktor',
-    lastName: 'Tasevski',
-  },
-  {
-    id: 3,
-    email: 'david_trajkovski@yahoo.com',
-    firstName: 'David',
-    lastName: 'Trajkovski',
-  },
-];

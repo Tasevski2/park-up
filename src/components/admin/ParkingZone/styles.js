@@ -3,6 +3,7 @@ import { Typography, Divider } from '@mui/material';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
 import { mobile_max_width } from '../../../config/utilities';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const NamesWrapper = styled.div`
   margin-bottom: 10px;
@@ -26,7 +27,21 @@ export const ParkingAndZoneName = styled(Typography).attrs((props) => ({
   fontWeight: '600',
   margin: 0,
   color: `${props.theme.palette.primary.main}`,
-}))``;
+}))`
+  display: flex;
+  align-items: center;
+`;
+
+export const ZoneNameLoader = styled(CircularProgress).attrs({
+  size: 40,
+  sx: {
+    marginLeft: '10px',
+  },
+})`
+  .MuiCircularProgress-svg {
+    color: ${(props) => props.theme.palette.primary.light};
+  }
+`;
 
 export const DividerUnderNames = styled(Divider).attrs({
   variant: 'middle',

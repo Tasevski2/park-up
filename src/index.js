@@ -15,13 +15,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <StyledEngineProvider injectFirst>
-
         <ThemeProvider theme={theme}>
-
           <App />
-
         </ThemeProvider>
-
       </StyledEngineProvider>
     </BrowserRouter>
   </React.StrictMode>,

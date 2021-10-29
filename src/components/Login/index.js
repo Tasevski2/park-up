@@ -1,5 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
+import useLogin from '../../hooks/useLogin';
 
 import {
   CredentialsWrapper,
@@ -14,14 +15,14 @@ import {
 } from './styles';
 
 const Login = () => {
+  const { loginUser } = useLogin();
   const { data, onFormChange } = useForm({
     email: '',
     password: '',
   });
   let history = useHistory();
   const handleSignIn = () => {
-    console.log(`Email: ${data.email}`);
-    console.log(`Password: ${data.password}`);
+    loginUser({ email: data.email, password: data.password });
   };
   return (
     <>

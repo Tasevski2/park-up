@@ -22,6 +22,7 @@ import {
 import Modal from '@mui/material/Modal';
 import Backdrop from '@mui/material/Backdrop';
 import { IconButton, Slide } from '@mui/material';
+import AbsoluteLoader from '../../../Loaders/AbsoluteLoader';
 
 const AddEmployeeCard = ({ id, email, firstName, lastName, handleChange }) => (
   <ModalCard>
@@ -60,6 +61,7 @@ const ResponsiblePersonsSectorEdit = ({
   responsiblePersons,
   employeesDataModal,
   handleChange,
+  isLoadingresponsiblePersonsData,
 }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   return (
@@ -89,16 +91,31 @@ const ResponsiblePersonsSectorEdit = ({
               <CloseIcon />
             </IconButton>
             <ModalCardsContainer>
-              {employeesDataModal.length === 0 ? (
-                <ModalNoMoreEmplyees>Нема Повеќе Вработени</ModalNoMoreEmplyees>
+              {isLoadingresponsiblePersonsData ? (
+                <AbsoluteLoader
+                  containerStyle={{
+                    width: '200px',
+                    height: '200px',
+                    margin: 'auto',
+                    marginTop: '30px',
+                  }}
+                />
               ) : (
-                employeesDataModal.map((emp) => (
-                  <AddEmployeeCard
-                    {...emp}
-                    key={emp.id}
-                    handleChange={handleChange}
-                  />
-                ))
+                <>
+                  {employeesDataModal.length === 0 ? (
+                    <ModalNoMoreEmplyees>
+                      Нема Повеќе Вработени
+                    </ModalNoMoreEmplyees>
+                  ) : (
+                    employeesDataModal.map((emp) => (
+                      <AddEmployeeCard
+                        {...emp}
+                        key={emp.id}
+                        handleChange={handleChange}
+                      />
+                    ))
+                  )}
+                </>
               )}
             </ModalCardsContainer>
           </ModalContainer>

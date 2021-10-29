@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   Wrapper,
   SessionChildWrapper,
@@ -11,7 +13,8 @@ import {
 
 import { sessionStatus } from '../../../../config/enums';
 import { IconButton } from '@mui/material';
-import { useState } from 'react';
+import AbsoluteLoader from '../../../Loaders/AbsoluteLoader';
+import useDeleteSession from '../../../../hooks/useDeleteSession';
 
 const sessionCardColors = {
   active: '#389e0d',
@@ -19,12 +22,27 @@ const sessionCardColors = {
   over: '#cf1322',
 };
 
-const ActiveCard = ({ id, start, plate, status, parkingSpaceNumber }) => {
+const ActiveCard = ({
+  id,
+  start,
+  zone,
+  plate,
+  status,
+  parkingSpaceNumber,
+  onDeleteSession,
+}) => {
+  const { isLoading: isLoadingDeleteSession, deleteSession } =
+    useDeleteSession();
   return (
     <Wrapper style={{ backgroundColor: sessionCardColors.active }}>
       <SessionChildWrapper>
         <SessionChildTitle>Почеток</SessionChildTitle>
         <SeessionChildData>{start}</SeessionChildData>
+      </SessionChildWrapper>
+
+      <SessionChildWrapper>
+        <SessionChildTitle>Зона</SessionChildTitle>
+        <SeessionChildData>{zone}</SeessionChildData>
       </SessionChildWrapper>
 
       <SessionChildWrapper>
@@ -38,14 +56,44 @@ const ActiveCard = ({ id, start, plate, status, parkingSpaceNumber }) => {
       </SessionChildWrapper>
 
       <SessionChildWrapper>
-        <DeleteButton>ИЗБРИШИ</DeleteButton>
+        {isLoadingDeleteSession ? (
+          <div style={{ width: '104px', textAlign: 'center' }}>
+            <AbsoluteLoader
+              containerStyle={{
+                width: '40px',
+                height: '40px',
+                display: 'inline-block',
+              }}
+            />
+          </div>
+        ) : (
+          <DeleteButton
+            onClick={() => {
+              console.log(`CLICKED DELETE BUTTON ${id}`);
+              deleteSession({ id, onDeleteSession });
+            }}
+          >
+            ИЗБРИШИ
+          </DeleteButton>
+        )}
       </SessionChildWrapper>
     </Wrapper>
   );
 };
 
-const IdleCard = ({ id, start, plate, status, parkingSpaceNumber }) => {
-  const [parkingSpace, setParkingSpace] = useState(parkingSpaceNumber ?? '');
+const IdleCard = ({
+  id,
+  start,
+  zone,
+  plate,
+  status,
+  handleActivateSession,
+  isLoadingActivateSession,
+  onDeleteSession,
+}) => {
+  const { isLoading: isLoadingDeleteSession, deleteSession } =
+    useDeleteSession();
+  const [parkingSpaceNumber, setParkingSpaceNumber] = useState('');
   return (
     <Wrapper style={{ backgroundColor: sessionCardColors.idle }}>
       <SessionChildWrapper>
@@ -54,16 +102,39 @@ const IdleCard = ({ id, start, plate, status, parkingSpaceNumber }) => {
       </SessionChildWrapper>
 
       <SessionChildWrapper>
+        <SessionChildTitle>Зона</SessionChildTitle>
+        <SeessionChildData>{zone}</SeessionChildData>
+      </SessionChildWrapper>
+
+      <SessionChildWrapper>
         <SessionChildTitle>Број на место</SessionChildTitle>
         <InputAndCheckIconWrapper>
           <ParkingSpaceNumberInput
-            value={parkingSpace}
-            onChange={(event) => setParkingSpace(event.target.value)}
+            value={parkingSpaceNumber}
+            onChange={(event) =>
+              setParkingSpaceNumber(event.target.value.trim())
+            }
           />
-          {parkingSpace !== '' ? (
-            <IconButton>
-              <CheckIcon />
-            </IconButton>
+          {parkingSpaceNumber !== '' ? (
+            <>
+              {isLoadingActivateSession ? (
+                <AbsoluteLoader
+                  containerStyle={{
+                    width: '2rem',
+                    height: '2rem',
+                    display: 'inline-block',
+                  }}
+                />
+              ) : (
+                <IconButton
+                  onClick={() =>
+                    handleActivateSession({ id, parkingSpaceNumber })
+                  }
+                >
+                  <CheckIcon />
+                </IconButton>
+              )}
+            </>
           ) : null}
         </InputAndCheckIconWrapper>
       </SessionChildWrapper>
@@ -74,13 +145,43 @@ const IdleCard = ({ id, start, plate, status, parkingSpaceNumber }) => {
       </SessionChildWrapper>
 
       <SessionChildWrapper>
-        <DeleteButton>ИЗБРИШИ</DeleteButton>
+        {isLoadingDeleteSession ? (
+          <div style={{ width: '104px', textAlign: 'center' }}>
+            <AbsoluteLoader
+              containerStyle={{
+                width: '40px',
+                height: '40px',
+                display: 'inline-block',
+              }}
+            />
+          </div>
+        ) : (
+          <DeleteButton
+            onClick={() => {
+              console.log(`CLICKED DELETE BUTTON ${id}`);
+              deleteSession({ id, onDeleteSession });
+            }}
+          >
+            ИЗБРИШИ
+          </DeleteButton>
+        )}
       </SessionChildWrapper>
     </Wrapper>
   );
 };
 
-const OverCard = ({ id, start, end, plate, status, parkingSpaceNumber }) => {
+const OverCard = ({
+  id,
+  start,
+  end,
+  zone,
+  plate,
+  status,
+  parkingSpaceNumber,
+  onDeleteSession,
+}) => {
+  const { isLoading: isLoadingDeleteSession, deleteSession } =
+    useDeleteSession();
   return (
     <Wrapper style={{ backgroundColor: sessionCardColors.over }}>
       <SessionChildWrapper>
@@ -95,6 +196,11 @@ const OverCard = ({ id, start, end, plate, status, parkingSpaceNumber }) => {
       </SessionChildWrapper>
 
       <SessionChildWrapper>
+        <SessionChildTitle>Зона</SessionChildTitle>
+        <SeessionChildData>{zone}</SeessionChildData>
+      </SessionChildWrapper>
+
+      <SessionChildWrapper>
         <SessionChildTitle>Број на место</SessionChildTitle>
         <SeessionChildData>{parkingSpaceNumber}</SeessionChildData>
       </SessionChildWrapper>
@@ -105,20 +211,49 @@ const OverCard = ({ id, start, end, plate, status, parkingSpaceNumber }) => {
       </SessionChildWrapper>
 
       <SessionChildWrapper>
-        <DeleteButton>ИЗБРИШИ</DeleteButton>
+        {isLoadingDeleteSession ? (
+          <div style={{ width: '104px', textAlign: 'center' }}>
+            <AbsoluteLoader
+              containerStyle={{
+                width: '40px',
+                height: '40px',
+                display: 'inline-block',
+              }}
+            />
+          </div>
+        ) : (
+          <DeleteButton
+            onClick={() => {
+              console.log(`CLICKED DELETE BUTTON ${id}`);
+              deleteSession({ id, onDeleteSession });
+            }}
+          >
+            ИЗБРИШИ
+          </DeleteButton>
+        )}
       </SessionChildWrapper>
     </Wrapper>
   );
 };
 
-const SessionCard = (props) => {
-  switch (props.status) {
+const SessionCard = ({
+  handleActivateSession,
+  isLoadingActivateSession,
+  ...commponProps
+}) => {
+  switch (commponProps.status) {
     case sessionStatus.active:
-      return <ActiveCard {...props} />;
+      return <ActiveCard {...commponProps} />;
     case sessionStatus.idle:
-      return <IdleCard {...props} />;
+      return (
+        <IdleCard
+          {...commponProps}
+          handleActivateSession={handleActivateSession}
+          isLoadingActivateSession={isLoadingActivateSession}
+        />
+      );
     case sessionStatus.over:
-      return <OverCard {...props} />;
+      return <OverCard {...commponProps} />;
     default:
       return null;
   }

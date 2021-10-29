@@ -35,6 +35,7 @@ export const RowWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 25px;
+  position: relative;
 `;
 
 export const LabelAndInputWrapper = styled.div``;

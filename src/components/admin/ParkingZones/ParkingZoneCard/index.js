@@ -15,6 +15,8 @@ import DropdownViewer from '../../../DropdownViewer';
 
 const ParkingZoneCard = ({ info }) => {
   let history = useHistory();
+  const takenDividedByTotal =
+    info.takenParkingSpaces / info.parkingSpacesNumber;
 
   return (
     <ParkingZoneWrapper item xs={11} sm={6} md={3}>
@@ -30,7 +32,7 @@ const ParkingZoneCard = ({ info }) => {
         </InfoWrapper>
         <ProgressBar
           percent={Math.floor(
-            (info.takenParkingSpaces / info.parkingSpacesNumber) * 100
+            (isNaN(takenDividedByTotal) ? 0 : takenDividedByTotal) * 100
           )}
           label={() => (
             <ProgressBarLabel>

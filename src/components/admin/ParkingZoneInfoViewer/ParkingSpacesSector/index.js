@@ -39,15 +39,6 @@ const ParkingSpacesSector = ({
                 </tr>
               )
             )}
-            {parkingSpacesLocation.map(
-              ({ lat, lng, parkingSpaceNumber }, index) => (
-                <tr key={index}>
-                  <td>{lat}</td>
-                  <td>{lng}</td>
-                  <td>{parkingSpaceNumber}</td>
-                </tr>
-              )
-            )}
           </tbody>
         </table>
       </TableWrapper>

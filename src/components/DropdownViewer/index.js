@@ -3,7 +3,7 @@ import { Dropdown, DropdownItem } from './styles';
 const DropdownViewer = ({ data, width }) => {
   return (
     <Dropdown
-      value={data[0]}
+      value={data[0] ?? ''}
       displayEmpty
       renderValue={() => (
         <DropdownItem>{data[0] ?? <em>NONE</em>}</DropdownItem>

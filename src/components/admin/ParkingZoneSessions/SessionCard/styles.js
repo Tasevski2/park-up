@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
   box-shadow: 0 10px 5px -2px ${(props) => props.theme.palette.background.shadow};
 
   @media (max-width: ${mobile_max_width}px) {
-    height: 335px;
+    height: 400px;
     border-radius: 100px;
     flex-direction: column;
   }
@@ -51,7 +51,8 @@ export const SeessionChildData = styled.p`
 export const InputAndCheckIconWrapper = styled.div`
   position: relative;
 
-  button {
+  button,
+  > div {
     padding: 0;
     position: absolute;
     right: -40px;

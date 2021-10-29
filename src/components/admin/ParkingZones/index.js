@@ -22,6 +22,7 @@ import {
   CloseIcon,
 } from './styles';
 
+import AbsoluteLoader from '../../Loaders/AbsoluteLoader';
 import Modal from '@mui/material/Modal';
 import Backdrop from '@mui/material/Backdrop';
 import { IconButton, Slide } from '@mui/material';
@@ -29,6 +30,8 @@ import ParkingZoneCard from './ParkingZoneCard';
 
 import { roles } from '../../../config/enums';
 import { UserContext } from '../../../context/UserContext';
+import useGetData from '../../../hooks/useGetData';
+import useCreateZone from '../../../hooks/useCreateZone';
 
 import { parkingZones } from './mockData';
 
@@ -67,21 +70,32 @@ const sortByName = (a, b) => {
 
 const ParkingZones = () => {
   const { user } = useContext(UserContext);
+  const { data: zones, isLoading: isLoadingZones } = useGetData({
+    url: '/posts',
+  });
+  const [zonesMock, setZonesMock] = useState(parkingZones);
+  const { createZone, isLoading: isCreateZoneLoading } = useCreateZone();
   const [isArrowUpUp, setIsArrowUpUp] = useState(false);
   const [isArrowDownUp, setIsArrowDownUp] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalInput, setModalInput] = useState('');
-
   const sortFunc = isArrowUpUp
     ? sortDownUp
     : isArrowDownUp
     ? sortUpDown
     : sortByName;
 
+  const addNewZoneToData = (newZone) => {
+    zonesMock.push(newZone);
+    // zones.push(newZone); // TODO NEED TO FETCH THE ORIGINAL DATA TO WORK
+  };
   const handleCreateZone = () => {
-    console.log(`Kreirana zona so naziv: ${modalInput}`);
-    setModalInput('');
-    setModalOpen(false);
+    createZone({
+      zoneName: modalInput,
+      setModalInput,
+      setModalOpen,
+      addNewZoneToData,
+    });
   };
 
   return (
@@ -116,17 +130,32 @@ const ParkingZones = () => {
             >
               <CloseIcon />
             </IconButton>
-            <ModalTitle>НОВА ЗОНА</ModalTitle>
-            <ModalInputAndLabelWrapper>
-              <ModalInputLabel>Назив на Зона</ModalInputLabel>
-              <ModalInput
-                value={modalInput}
-                onChange={(event) => setModalInput(event.target.value)}
+            {isCreateZoneLoading ? (
+              <AbsoluteLoader
+                containerStyle={{
+                  width: '200px',
+                  height: '200px',
+                  margin: 'auto',
+                  marginTop: '30px',
+                }}
               />
-            </ModalInputAndLabelWrapper>
-            <ButtonWrapper>
-              <ModalButton onClick={handleCreateZone}>Креирај Зона</ModalButton>
-            </ButtonWrapper>
+            ) : (
+              <>
+                <ModalTitle>НОВА ЗОНА</ModalTitle>
+                <ModalInputAndLabelWrapper>
+                  <ModalInputLabel>Назив на Зона</ModalInputLabel>
+                  <ModalInput
+                    value={modalInput}
+                    onChange={(event) => setModalInput(event.target.value)}
+                  />
+                </ModalInputAndLabelWrapper>
+                <ButtonWrapper>
+                  <ModalButton onClick={handleCreateZone}>
+                    Креирај Зона
+                  </ModalButton>
+                </ButtonWrapper>
+              </>
+            )}
           </ModalContainer>
         </Slide>
       </Modal>
@@ -166,23 +195,36 @@ const ParkingZones = () => {
       <DividerUnderFilters />
 
       <ParkingZonesWrapper container spacing={{ xs: 3, md: 5 }}>
-        {user.role === roles.admin ? (
-          <AddParkingZoneCard
-            item
-            xs={11}
-            sm={6}
-            md={3}
-            onClick={() => setModalOpen(true)}
-          >
-            <AddItem>
-              <AddIcon />
-            </AddItem>
-          </AddParkingZoneCard>
-        ) : null}
+        {isLoadingZones ? (
+          <AbsoluteLoader
+            containerStyle={{
+              width: '250px',
+              height: '250px',
+              margin: 'auto',
+              marginTop: '12vw',
+            }}
+          />
+        ) : (
+          <>
+            {user.role === roles.admin ? (
+              <AddParkingZoneCard
+                item
+                xs={11}
+                sm={6}
+                md={3}
+                onClick={() => setModalOpen(true)}
+              >
+                <AddItem>
+                  <AddIcon />
+                </AddItem>
+              </AddParkingZoneCard>
+            ) : null}
 
-        {parkingZones.sort(sortFunc).map((parkingZone) => (
-          <ParkingZoneCard key={parkingZone.id} info={parkingZone} />
-        ))}
+            {zonesMock.sort(sortFunc).map((parkingZone) => (
+              <ParkingZoneCard key={parkingZone.id} info={parkingZone} />
+            ))}
+          </>
+        )}
       </ParkingZonesWrapper>
     </>
   );

@@ -32,6 +32,7 @@ export const TableHeaderWrapper = styled.div`
   border: 1px solid grey;
   border-bottom: none;
   padding: 10px 16px;
+  position: relative;
   background-color: ${(props) => props.theme.palette.grey[400]};
 `;
 

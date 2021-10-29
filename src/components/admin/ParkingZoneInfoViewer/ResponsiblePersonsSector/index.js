@@ -22,13 +22,10 @@ const ResponsiblePersonsSector = ({ persons }) => {
           </thead>
           <tbody>
             {persons.map((person, index) => {
-              let splitted = person.split(' ');
-              let firstName = splitted[0] ?? '';
-              let lastName = splitted[1] ?? '';
               return (
                 <tr key={index}>
-                  <td>{firstName}</td>
-                  <td>{lastName}</td>
+                  <td>{person.firstName}</td>
+                  <td>{person.lastName}</td>
                   <td>
                     <Elipsis target='_blank' to={`/employees/${index + 1}`}>
                       ...

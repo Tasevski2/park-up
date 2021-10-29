@@ -122,6 +122,7 @@ export const AddIcon = styled(Add).attrs({
 
 export const ModalContainer = styled(Box).attrs({
   width: 400,
+  height: 366,
   bgcolor: 'background.paper',
   boxShadow: 24,
   zIndex: 1000,

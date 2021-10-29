@@ -5,12 +5,16 @@ import { Wrapper } from './styles';
 import ParkingZoneInfoViewer from '../ParkingZoneInfoViewer';
 import ParkingZoneInfoEdit from '../ParkingZoneInfoEdit';
 
-const ParkingZoneInfo = ({ zone }) => {
+const ParkingZoneInfo = ({ zone, setZone }) => {
   const [editMode, setEditMode] = useState(false);
   return (
     <Wrapper>
       {editMode ? (
-        <ParkingZoneInfoEdit zone={zone} setEditMode={setEditMode} />
+        <ParkingZoneInfoEdit
+          zone={zone}
+          setEditMode={setEditMode}
+          setZone={setZone}
+        />
       ) : (
         <ParkingZoneInfoViewer zone={zone} setEditMode={setEditMode} />
       )}

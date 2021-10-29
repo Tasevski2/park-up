@@ -26,8 +26,12 @@ import {
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
+import AbsoluteLoader from '../../Loaders/AbsoluteLoader';
 
 import { employeeStatus } from '../../../config/enums';
+import useGetData from '../../../hooks/useGetData';
+import useUpdateEmployee from '../../../hooks/useUpdateEmployee';
+import useDeleteEmployee from '../../../hooks/useDeleteEmployee';
 
 import { employees } from '../EmployeesTable/mockData';
 
@@ -43,7 +47,17 @@ const EmployeeEdit = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   let history = useHistory();
   let { employeeId } = useParams();
+  const { updateEmployee } = useUpdateEmployee();
+  const { deleteEmployee } = useDeleteEmployee();
+  const { data: employeeData, isLoading: isLoadingEmployeeData } = useGetData({
+    url: `/users/${employeeId}`,
+  }); // TODO  RENAME THE VARIABLES AND CHANGE THE URL
+  const { data: zonesData, isLoading: isLoadingZonesData } = useGetData({
+    url: `/albums`,
+  }); // TODO RENAME THE VARIABLES AND CHANGE THE URL
   employeeId = parseInt(employeeId);
+  console.log(employeeData, isLoadingEmployeeData);
+  console.log(zonesData, isLoadingZonesData);
 
   const employee = employees.find((e) => e.id === employeeId);
   const { data: employeeEditableData, onFormChange: setEmployeeEditableData } =
@@ -78,11 +92,11 @@ const EmployeeEdit = () => {
       accountActive: accStatus,
       zones: zones,
     };
-    console.log('Changed employee: ', changedEmployee);
+    updateEmployee({ employee: changedEmployee });
   };
 
   const onDeleteEmployee = () => {
-    console.log(`Empoyee with ${employee.id} is deleted`);
+    deleteEmployee({ id: employee.id });
   };
 
   const handleZonesChange = (event) => {
@@ -104,132 +118,157 @@ const EmployeeEdit = () => {
   return (
     <EmployeeEditWrapper>
       <Title variant='h5'>Уреди Вработен</Title>
-      <RowWrapper>
-        <LabelAndInputWrapper>
-          <Label>Име</Label>
-          <StandardInputField
-            value={employeeEditableData?.firstName ?? ''}
-            name='firstName'
-            onChange={setEmployeeEditableData}
-          />
-        </LabelAndInputWrapper>
-        <LabelAndInputWrapper>
-          <Label>Презиме</Label>
-          <StandardInputField
-            value={employeeEditableData?.lastName ?? ''}
-            name='lastName'
-            onChange={setEmployeeEditableData}
-          />
-        </LabelAndInputWrapper>
-      </RowWrapper>
-      <RowWrapper>
-        <LabelAndInputWrapper>
-          <Label>Емаил</Label>
-          <StandardInputField
-            value={employeeEditableData?.email ?? ''}
-            name='email'
-            type='email'
-            onChange={setEmployeeEditableData}
-          />
-        </LabelAndInputWrapper>
-        <LabelAndInputWrapper>
-          <Label>Телефон</Label>
-          <StandardInputField
-            value={employeeEditableData?.phoneNumber ?? ''}
-            name='phoneNumber'
-            onChange={setEmployeeEditableData}
-          />
-        </LabelAndInputWrapper>
-      </RowWrapper>
-      <RowWrapper>
-        <LabelAndInputWrapper>
-          <Label>Лозинка</Label>
-          <StandardInputField
-            value={employeeEditableData?.password ?? ''}
-            name='password'
-            type={isPasswordVisible ? 'text' : 'password'}
-            onChange={setEmployeeEditableData}
-          />
-        </LabelAndInputWrapper>
-        <IconButton
-          sx={{ marginTop: '23px' }}
-          onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-        >
-          {isPasswordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </IconButton>
-        <LabelAndInputWrapper>
-          <Label>Потврди Лозинка</Label>
-          <StandardInputField
-            value={confirmPassword}
-            name='confirmPassword'
-            type={isPasswordVisible ? 'text' : 'password'}
-            onChange={setConfirmPassword}
-          />
-        </LabelAndInputWrapper>
-      </RowWrapper>
-      <RowWrapper>
-        <LabelAndInputWrapper>
-          <Label>Одговорен за:</Label>
-          <Dropdown
-            multiple
-            value={zones}
-            onChange={handleZonesChange}
-            renderValue={(selected) => {
-              return selected.join(', ');
-            }}
-            MenuProps={MenuProps}
-          >
-            {zoneOptions.map((zone) => (
-              <DropdownOption value={zone} key={zone}>
-                <Checkbox checked={zones.indexOf(zone) > -1} />
-                <ListItemText primary={zone} />
-              </DropdownOption>
-            ))}
-          </Dropdown>
-        </LabelAndInputWrapper>
-        <LabelAndInputWrapper>
-          <Label>Статус</Label>
-          <Dropdown
-            value={
-              employeeEditableData?.status !== ''
-                ? employeeEditableData?.status
-                : statusOptions[0].value
-            }
-            name='status'
-            onChange={setEmployeeEditableData}
-            MenuProps={MenuProps}
-          >
-            {statusOptions.map((option) => (
-              <DropdownOption value={option.value} key={option.value}>
-                {option.text}
-              </DropdownOption>
-            ))}
-          </Dropdown>
-        </LabelAndInputWrapper>
-      </RowWrapper>
-      <SwitchRowWrapper>
-        <SwitchTitle>Акаунт</SwitchTitle>
-        <SwitchLabelAndInputWrapper>
-          <Label>Активен:</Label>
-          <AccountSwitch
-            checked={accStatus}
-            value={accStatus}
-            name='accountActive'
-            onClick={() => setAccStatus(!accStatus)}
-          />
-        </SwitchLabelAndInputWrapper>
-      </SwitchRowWrapper>
-      <RowWrapper>
-        <DeleteButton onClick={onDeleteEmployee}>Избриши Вработен</DeleteButton>
-        <BackAndSaveChangesButtonsWrapper>
-          <BackButton onClick={() => history.push('/employees')}>
-            Врати се Назад
-          </BackButton>
-          <SaveChangesButton onClick={onSaveChanges}>
-            Зачувај ги Промените
-          </SaveChangesButton>
-        </BackAndSaveChangesButtonsWrapper>
-      </RowWrapper>
+      {isLoadingEmployeeData ? (
+        <AbsoluteLoader
+          containerStyle={{
+            width: '200px',
+            height: '200px',
+            margin: 'auto',
+          }}
+        />
+      ) : (
+        <>
+          <RowWrapper>
+            <LabelAndInputWrapper>
+              <Label>Име</Label>
+              <StandardInputField
+                value={employeeEditableData?.firstName ?? ''}
+                name='firstName'
+                onChange={setEmployeeEditableData}
+              />
+            </LabelAndInputWrapper>
+            <LabelAndInputWrapper>
+              <Label>Презиме</Label>
+              <StandardInputField
+                value={employeeEditableData?.lastName ?? ''}
+                name='lastName'
+                onChange={setEmployeeEditableData}
+              />
+            </LabelAndInputWrapper>
+          </RowWrapper>
+          <RowWrapper>
+            <LabelAndInputWrapper>
+              <Label>Емаил</Label>
+              <StandardInputField
+                value={employeeEditableData?.email ?? ''}
+                name='email'
+                type='email'
+                onChange={setEmployeeEditableData}
+              />
+            </LabelAndInputWrapper>
+            <LabelAndInputWrapper>
+              <Label>Телефон</Label>
+              <StandardInputField
+                value={employeeEditableData?.phoneNumber ?? ''}
+                name='phoneNumber'
+                onChange={setEmployeeEditableData}
+              />
+            </LabelAndInputWrapper>
+          </RowWrapper>
+          <RowWrapper>
+            <LabelAndInputWrapper>
+              <Label>Лозинка</Label>
+              <StandardInputField
+                value={employeeEditableData?.password ?? ''}
+                name='password'
+                type={isPasswordVisible ? 'text' : 'password'}
+                onChange={setEmployeeEditableData}
+              />
+            </LabelAndInputWrapper>
+            <IconButton
+              sx={{ marginTop: '23px' }}
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+              {isPasswordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+            <LabelAndInputWrapper>
+              <Label>Потврди Лозинка</Label>
+              <StandardInputField
+                value={confirmPassword}
+                name='confirmPassword'
+                type={isPasswordVisible ? 'text' : 'password'}
+                onChange={setConfirmPassword}
+              />
+            </LabelAndInputWrapper>
+          </RowWrapper>
+          <RowWrapper>
+            {isLoadingZonesData ? (
+              <AbsoluteLoader
+                containerStyle={{
+                  position: 'absolute',
+                  left: '310px',
+                  bottom: '5px',
+                  width: '40px',
+                  height: '40px',
+                }}
+              />
+            ) : null}
+            <LabelAndInputWrapper>
+              <Label>Одговорен за:</Label>
+              <Dropdown
+                multiple
+                value={zones}
+                onChange={handleZonesChange}
+                renderValue={(selected) => {
+                  return selected.join(', ');
+                }}
+                MenuProps={MenuProps}
+              >
+                {zoneOptions.map((zone) => (
+                  <DropdownOption value={zone} key={zone}>
+                    <Checkbox checked={zones.indexOf(zone) > -1} />
+                    <ListItemText primary={zone} />
+                  </DropdownOption>
+                ))}
+              </Dropdown>
+            </LabelAndInputWrapper>
+            <LabelAndInputWrapper>
+              <Label>Статус</Label>
+              <Dropdown
+                value={
+                  employeeEditableData?.status !== ''
+                    ? employeeEditableData?.status
+                    : statusOptions[0].value
+                }
+                name='status'
+                onChange={setEmployeeEditableData}
+                MenuProps={MenuProps}
+              >
+                {statusOptions.map((option) => (
+                  <DropdownOption value={option.value} key={option.value}>
+                    {option.text}
+                  </DropdownOption>
+                ))}
+              </Dropdown>
+            </LabelAndInputWrapper>
+          </RowWrapper>
+          <SwitchRowWrapper>
+            <SwitchTitle>Акаунт</SwitchTitle>
+            <SwitchLabelAndInputWrapper>
+              <Label>Активен:</Label>
+              <AccountSwitch
+                checked={accStatus}
+                value={accStatus}
+                name='accountActive'
+                onClick={() => setAccStatus(!accStatus)}
+              />
+            </SwitchLabelAndInputWrapper>
+          </SwitchRowWrapper>
+          <RowWrapper>
+            <DeleteButton onClick={onDeleteEmployee}>
+              Избриши Вработен
+            </DeleteButton>
+            <BackAndSaveChangesButtonsWrapper>
+              <BackButton onClick={() => history.push('/employees')}>
+                Врати се Назад
+              </BackButton>
+              <SaveChangesButton onClick={onSaveChanges}>
+                Зачувај ги Промените
+              </SaveChangesButton>
+            </BackAndSaveChangesButtonsWrapper>
+          </RowWrapper>
+        </>
+      )}
     </EmployeeEditWrapper>
   );
 };

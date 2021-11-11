@@ -1,10 +1,5 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
-
-import DestinationComponent from './utils/DestinationComponent';
-
-import AbsoluteLoader from './components/Loaders/AbsoluteLoader';
-import AdminHomeScreen from './screens/AdminHomeScreen';
-import AuthScreenImported from './screens/AuthScreen';
+import AdminEmployeeHomeScreen from './screens/AdminHomeScreen';
+import UserAndNotAuthScreen from './screens/UserAndNotAuthScreen';
 import Alert from './components/Alert';
 import BackgropLoader from './components/Loaders/BackdropLoader';
 import { roles } from './config/enums';
@@ -14,18 +9,7 @@ import useIsMobile from './hooks/useIsMobile';
 import { useState } from 'react';
 
 import useFindUser from './hooks/useFindUser';
-
-const AuthScreen = new DestinationComponent('/', AuthScreenImported, true);
-const AdminEmployeeHomeScreen = new DestinationComponent('/', AdminHomeScreen);
-// const UserHomeScreen = new DestinationComponent('/', UserHomeScreen); TODO
-
-const publicRoutes = [AuthScreen];
-
-const userRoutes = [
-  // UserHomeScreen
-];
-
-const adminAndEmployeeRoutes = [AdminEmployeeHomeScreen];
+import Sidedrawer from './components/Sidedrawer';
 
 function App(props) {
   const [alertData, setAlertData] = useState({
@@ -40,33 +24,34 @@ function App(props) {
   const { isMobile } = useIsMobile();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isBackdropLoaderOpen, setIsBackdropLoaderOpen] = useState(false);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
   const [user, setUser] = useState({
     firstName: 'Виктор',
     lastName: 'Тасевски', //   TOOD DELETE THIS THIS IS FOR MOCKING
-    role: 'ROLE_ADMIN',
+    role: 'ROLE_USER',
   });
 
+  // const [user, setUser] = useState(null); //   TOOD DELETE THIS THIS IS FOR MOCKING
+
   const isLoadingUser = false; // TODO DELETE IT NO USE
-  let routes = publicRoutes;
-  if (user) {
-    switch (user.role) {
-      case roles.user:
-        routes = userRoutes;
-        break;
-      case roles.admin:
-      case roles.employee:
-        routes = adminAndEmployeeRoutes;
-        break;
-      default:
-        break;
-    }
+  let displayScreen;
+  if (user && (user.role === roles.admin || user.role === roles.employee)) {
+    displayScreen = <AdminEmployeeHomeScreen />;
+  } else {
+    displayScreen = <UserAndNotAuthScreen />;
   }
+
   return (
     <UserContext.Provider value={{ user, setUser, isLoadingUser }}>
       <AccessoriesContext.Provider
-        value={{ isMobile, setAlert, setIsBackdropLoaderOpen }}
+        value={{ isMobile, setAlert, setIsBackdropLoaderOpen, setIsOpenDrawer }}
       >
+        <Sidedrawer
+          isOpen={isOpenDrawer}
+          setIsOpen={setIsOpenDrawer}
+          isMobile={isMobile}
+        />
         <BackgropLoader
           isBackdropLoaderOpen={isBackdropLoaderOpen}
           isMobile={isMobile}
@@ -77,12 +62,7 @@ function App(props) {
           type={alertData.type}
           msg={alertData.msg}
         />
-        <Switch>
-          {routes?.map((route, index) => (
-            <Route key={index} path={route.path} component={route.component} />
-          ))}
-          <Redirect to='/' />
-        </Switch>
+        {displayScreen}
       </AccessoriesContext.Provider>
     </UserContext.Provider>
   );

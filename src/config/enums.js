@@ -18,6 +18,7 @@ export const sessionStatus = {
 
 export const roles = {
   user: 'ROLE_USER',
+  guest: 'ROLE_GUEST',
   employee: 'ROLE_EMPLOYEE',
   admin: 'ROLE_ADMIN',
 };

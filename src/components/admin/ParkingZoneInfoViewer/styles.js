@@ -10,16 +10,16 @@ export const RightSideWrapper = styled.div`
   position: relative;
 `;
 
-export const EditIcon = styled(EditI).attrs({
+export const EditIcon = styled(EditI).attrs((props) => ({
   sx: {
     fontSize: '3rem',
-    border: '3px solid #f65026',
-    color: '#f65026',
+    border: `3px solid ${props.theme.palette.third.main}`,
+    color: props.theme.palette.third.main,
     padding: '5px',
   },
-})`
+}))`
   :hover {
     background-color: rgba(246, 80, 38, 0.1);
-    border: 3px dashed #f65026;
+    border: 3px dashed ${(props) => props.theme.palette.third.main};
   }
 `;

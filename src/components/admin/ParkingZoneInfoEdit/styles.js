@@ -60,13 +60,13 @@ export const CancelButton = styled(Button).attrs({
   position: absolute;
   font-size: 1rem;
   font-weight: 600;
-  color: #f65026;
-  border: 3px solid #f65026;
+  color: ${(props) => props.theme.palette.third.main};
+  border: 3px solid ${(props) => props.theme.palette.third.main};
   padding: 5px 10px;
   right: 0;
   top: -48px;
   :hover {
-    border: 3px dashed #f65026;
+    border: 3px dashed ${(props) => props.theme.palette.third.main};
     background-color: rgba(246, 80, 38, 0.1);
   }
 `;

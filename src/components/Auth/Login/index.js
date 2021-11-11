@@ -1,6 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
-import useForm from '../../hooks/useForm';
-import useLogin from '../../hooks/useLogin';
+import useForm from '../../../hooks/useForm';
+import useLogin from '../../../hooks/useLogin';
 
 import {
   CredentialsWrapper,

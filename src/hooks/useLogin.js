@@ -22,7 +22,7 @@ const useLogin = () => {
         setUser({
           firstName: 'Виктор',
           lastName: 'Тасевски', //   TOOD DELETE THIS THIS IS FOR MOCKING
-          role: 'ROLE_EMPLOYEE',
+          role: 'ROLE_ADMIN',
         });
       })
       .catch((err) => {

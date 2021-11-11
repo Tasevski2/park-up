@@ -20,16 +20,8 @@ import {
   DividerUnderHeader,
   UserIcon,
   MenuBurgerIcon,
-  DrawerContainer,
-  CloseIcon,
-  DividerUnderListItem,
-  DividerUnderList,
 } from './styles';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+
 import IconButton from '@mui/material/IconButton';
 
 import logo from '../../resources/logo_2_transparent_bg.png';
@@ -82,8 +74,7 @@ const employeeRoutes = [ToParkingZones, ToParkingZone];
 
 const AdminHomeScreen = (props) => {
   const { user, isLoadingUser } = useContext(UserContext);
-  const { isMobile } = useContext(AccessoriesContext);
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const { isMobile, setIsOpenDrawer } = useContext(AccessoriesContext);
   let history = useHistory();
   const { logoutUser } = useLogoutUser();
   let routes = user.role === roles.admin ? adminRoutes : employeeRoutes;
@@ -100,70 +91,7 @@ const AdminHomeScreen = (props) => {
         />
       ) : (
         <>
-          {isMobile ? (
-            <SwipeableDrawer
-              open={isOpenDrawer}
-              onClose={() => setIsOpenDrawer(false)}
-              onOpen={() => setIsOpenDrawer(true)}
-            >
-              <DrawerContainer>
-                <IconButton
-                  onClick={() => setIsOpenDrawer(false)}
-                  style={{ marginLeft: '190px' }}
-                >
-                  <CloseIcon />
-                </IconButton>
-                <List>
-                  <ListItem
-                    onClick={() => {
-                      setIsOpenDrawer(false);
-                      onClickRouting('/', history);
-                    }}
-                  >
-                    <ListItemIcon>
-                      <DashboardIcon style={{ margin: 0 }} />
-                    </ListItemIcon>
-                    <ListItemText primary='Зони' />
-                  </ListItem>
-                  <DividerUnderListItem />
-                  {user.role === roles.admin ? (
-                    <>
-                      <ListItem
-                        onClick={() => {
-                          setIsOpenDrawer(false);
-                          onClickRouting('/employees', history);
-                        }}
-                      >
-                        <ListItemIcon>
-                          <SupervisorAccountIcon style={{ margin: 0 }} />
-                        </ListItemIcon>
-                        <ListItemText primary='Вработени' />
-                      </ListItem>
-                      <DividerUnderListItem />
-                    </>
-                  ) : null}
-                </List>
-                <List>
-                  <DividerUnderList />
-                  <ListItem>
-                    <ListItemIcon>
-                      <UserIcon style={{ margin: 0 }} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={`${user.firstName} ${user.lastName}`}
-                    />
-                  </ListItem>
-                  <DividerUnderListItem />
-                  <ListItem onClick={logoutUser}>
-                    <ListItemIcon>
-                      <LogoutIcon style={{ margin: 0 }} />
-                    </ListItemIcon>
-                    <ListItemText primary='Одјави Се' />
-                  </ListItem>
-                </List>
-              </DrawerContainer>
-            </SwipeableDrawer>
-          ) : (
+          {!isMobile ? (
             <SideMenu>
               <IconButton onClick={() => onClickRouting('/', history)}>
                 <DashboardIcon />
@@ -176,7 +104,7 @@ const AdminHomeScreen = (props) => {
                 </IconButton>
               ) : null}
             </SideMenu>
-          )}
+          ) : null}
 
           <HeaderAndMainSectionWrapper>
             <Header>

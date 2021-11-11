@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import useForm from '../../hooks/useForm';
+import useForm from '../../../hooks/useForm';
 import {
   CredentialsWrapper,
   Input,
@@ -19,7 +19,6 @@ const Register = () => {
     phoneNumber: '',
     password: '',
   });
-
   return (
     <>
       <CredentialsWrapper>
@@ -76,7 +75,7 @@ const Register = () => {
         Регистрирај се
       </RegisterButton>
       <LoginText>
-        Имате Профил? <Link to='/'>Најавете се!</Link>
+        Имате Профил? <Link to='/login'>Најавете се!</Link>
       </LoginText>
     </>
   );

@@ -57,7 +57,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-  padding: 30px 25px;
+  padding: 30px 0px;
 `;
 export const SignInButton = styled(Button).attrs((props) => ({
   variant: 'contained',
@@ -81,8 +81,8 @@ export const SignInButton = styled(Button).attrs((props) => ({
 export const DividerButtons = styled(Divider).attrs({
   sx: {},
 })`
-  align-items: flex-start;
-  margin-bottom: 15px;
+  align-items: center;
+  // margin-bottom: 15px;
   ::before,
   ::after {
     border-top: 2px solid white;
@@ -103,7 +103,7 @@ export const RegisterText = styled.p`
   a {
     margin-left: 10px;
     text-decoration: none;
-    color: #f65026;
+    color: ${(props) => props.theme.palette.third.main};
     font-weight: bold;
     font-size: 1.2rem;
   }

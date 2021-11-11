@@ -14,7 +14,7 @@ const useLogoutUser = () => {
       type: 'success',
       msg: 'Успешно Сте Одјавени!', // TODO change msg to err.message
     });
-    history.push('/');
+    history.push('/maps');
   };
   return {
     logoutUser,

@@ -110,7 +110,7 @@ export const Elipsis = styled(Link)`
   line-height: 0px;
   font-weight: 900;
   letter-spacing: 2px;
-  color: #f65026;
+  color: ${(props) => props.theme.palette.third.main};
 
   :hover {
     cursor: pointer;

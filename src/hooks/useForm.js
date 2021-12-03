@@ -9,10 +9,13 @@ const useForm = (editData) => {
       [event.target.name]: event.target.value,
     });
   };
-
+  const setNewData = (newData) => {
+    setData({...newData});
+  }
   return {
     data,
     onFormChange,
+    setNewData
   };
 };
 

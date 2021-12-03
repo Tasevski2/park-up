@@ -12,60 +12,66 @@ import useFindUser from './hooks/useFindUser';
 import Sidedrawer from './components/Sidedrawer';
 
 function App(props) {
-  const [alertData, setAlertData] = useState({
-    type: 'error',
-    msg: 'Не Сте Логирани!',
-  });
-  const setAlert = ({ type, msg }) => {
-    setAlertData({ type, msg });
-    setIsAlertOpen(true);
-  };
-  // const { user, setUser, isLoading: isLoadingUser } = useFindUser({ setAlert });
-  const { isMobile } = useIsMobile();
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [isBackdropLoaderOpen, setIsBackdropLoaderOpen] = useState(false);
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+    const [alertData, setAlertData] = useState({
+        type: 'error',
+        msg: 'Не Сте Логирани!',
+    });
+    const setAlert = ({ type, msg }) => {
+        setAlertData({ type, msg });
+        setIsAlertOpen(true);
+    };
+    // const { user, setUser, isLoading: isLoadingUser } = useFindUser({ setAlert });
+    const { isMobile } = useIsMobile();
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
+    const [isBackdropLoaderOpen, setIsBackdropLoaderOpen] = useState(false);
+    const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
-  const [user, setUser] = useState({
-    firstName: 'Виктор',
-    lastName: 'Тасевски', //   TOOD DELETE THIS THIS IS FOR MOCKING
-    role: 'ROLE_USER',
-  });
+    const [user, setUser] = useState({
+        firstName: 'Виктор',
+        lastName: 'Тасевски', //   TOOD DELETE THIS THIS IS FOR MOCKING
+        role: 'ROLE_USER',
+        id: 1,
+    });
 
-  // const [user, setUser] = useState(null); //   TOOD DELETE THIS THIS IS FOR MOCKING
+    // const [user, setUser] = useState(null); //   TOOD DELETE THIS THIS IS FOR MOCKING
 
-  const isLoadingUser = false; // TODO DELETE IT NO USE
-  let displayScreen;
-  if (user && (user.role === roles.admin || user.role === roles.employee)) {
-    displayScreen = <AdminEmployeeHomeScreen />;
-  } else {
-    displayScreen = <UserAndNotAuthScreen />;
-  }
+    const isLoadingUser = false; // TODO DELETE IT NO USE
+    let displayScreen;
+    if (user && (user.role === roles.admin || user.role === roles.employee)) {
+        displayScreen = <AdminEmployeeHomeScreen />;
+    } else {
+        displayScreen = <UserAndNotAuthScreen />;
+    }
 
-  return (
-    <UserContext.Provider value={{ user, setUser, isLoadingUser }}>
-      <AccessoriesContext.Provider
-        value={{ isMobile, setAlert, setIsBackdropLoaderOpen, setIsOpenDrawer }}
-      >
-        <Sidedrawer
-          isOpen={isOpenDrawer}
-          setIsOpen={setIsOpenDrawer}
-          isMobile={isMobile}
-        />
-        <BackgropLoader
-          isBackdropLoaderOpen={isBackdropLoaderOpen}
-          isMobile={isMobile}
-        />
-        <Alert
-          isOpen={isAlertOpen}
-          setIsOpen={setIsAlertOpen}
-          type={alertData.type}
-          msg={alertData.msg}
-        />
-        {displayScreen}
-      </AccessoriesContext.Provider>
-    </UserContext.Provider>
-  );
+    return (
+        <UserContext.Provider value={{ user, setUser, isLoadingUser }}>
+            <AccessoriesContext.Provider
+                value={{
+                    isMobile,
+                    setAlert,
+                    setIsBackdropLoaderOpen,
+                    setIsOpenDrawer,
+                }}
+            >
+                <Sidedrawer
+                    isOpen={isOpenDrawer}
+                    setIsOpen={setIsOpenDrawer}
+                    isMobile={isMobile}
+                />
+                <BackgropLoader
+                    isBackdropLoaderOpen={isBackdropLoaderOpen}
+                    isMobile={isMobile}
+                />
+                <Alert
+                    isOpen={isAlertOpen}
+                    setIsOpen={setIsAlertOpen}
+                    type={alertData.type}
+                    msg={alertData.msg}
+                />
+                {displayScreen}
+            </AccessoriesContext.Provider>
+        </UserContext.Provider>
+    );
 }
 
 export default App;

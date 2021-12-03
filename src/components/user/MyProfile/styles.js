@@ -7,6 +7,7 @@ import LockI from '@mui/icons-material/Lock';
 import EditI from '@mui/icons-material/Edit';
 import CancelI from '@mui/icons-material/Cancel';
 import SaveI from '@mui/icons-material/Save';
+import LockOpenI from '@mui/icons-material/LockOpen';
 
 export const Wrapper = styled.div`
     text-align: center;
@@ -53,6 +54,13 @@ export const LockIcon = styled(LockI).attrs({
     fontSize: '2rem',
     color: 'white',
   },
+})``;
+
+export const LockOpenIcon = styled(LockOpenI).attrs({
+    sx: {
+        fontSize: '2rem',
+        color: 'white',
+    },
 })``;
 
 export const PersonIcon = styled(PersonI).attrs({
@@ -129,23 +137,24 @@ export const CancelButton = styled(Button).attrs((props) => ({
 `;
 
 export const EditButton = styled(Button).attrs((props) => ({
-  variant: 'contained',
-  size: 'large',
-  startIcon: <EditIcon />,
-  sx: {
-    width: '40%',
-    backgroundColor: 'white',
-  },
+    variant: 'contained',
+    size: 'large',
+    startIcon: <EditIcon />,
+    sx: {
+        width: '40%',
+        backgroundColor: 'white',
+    },
 }))`
-  margin-top: 30px;
-  box-shadow: 5px 5px 10px ${(props) => props.theme.palette.background.shadow};
-  color: ${(props) => props.theme.palette.third.main};
-  border-radius: 15px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  :hover {
-    background-color: ${(props) => props.theme.palette.background.whiteSmoke};
-  }
+    margin-top: 5vh;
+    box-shadow: 5px 5px 10px ${(props) => props.theme.palette.background.shadow};
+    color: ${(props) => props.theme.palette.third.main};
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    :hover {
+        background-color: ${(props) =>
+            props.theme.palette.background.whiteSmoke};
+    }
 `;
 
 export const FullNameWrapper = styled.div`
@@ -156,9 +165,9 @@ export const FullNameWrapper = styled.div`
 `;
 
 export const ButtonsWrapper = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0 25px;
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 25px;
 `;
